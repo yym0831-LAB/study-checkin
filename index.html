@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="备考打卡">
+<meta name="theme-color" content="#4B3FE3">
+<meta name="format-detection" content="telephone=no">
+<title>备考全计划 - 考研·竞赛·体测·四级</title>
+<style>
+:root{
+  --primary:#4B3FE3;--primary-light:#F2F7FF;--primary-dark:#1A1759;
+  --bg:#f5f5f7;--card:#fff;--text:#1a1a1a;--text-muted:#666;--border:#e0e0e0;
+  --success:#1DC981;--warning:#EFAA17;--danger:#E8463A;--accent:#22A5F7;
+  --radius:8px;--radius-lg:12px;
+  --font:-apple-system,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+/* Cover Page */
+.cover-page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#4B3FE3 0%,#22A5F7 50%,#1DC981 100%);color:#fff;text-align:center;padding:40px 20px;position:relative;overflow:hidden}
+.cover-page::before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.08) 1px,transparent 1px);background-size:30px 30px;animation:coverDrift 20s linear infinite}
+@keyframes coverDrift{from{transform:translate(0,0)}to{transform:translate(30px,30px)}}
+.cover-page .cover-inner{position:relative;z-index:2;max-width:700px}
+.cover-page .cover-badge{display:inline-block;padding:6px 20px;border:2px solid rgba(255,255,255,.5);border-radius:999px;font-size:13px;font-weight:600;letter-spacing:2px;margin-bottom:28px;backdrop-filter:blur(4px)}
+.cover-page h1{font-size:48px;font-weight:800;color:#fff;border:none;letter-spacing:4px;margin-bottom:12px;text-shadow:0 4px 20px rgba(0,0,0,.2)}
+.cover-page .cover-subtitle{font-size:20px;color:rgba(255,255,255,.9);margin-bottom:40px;letter-spacing:6px;font-weight:300}
+.cover-page .cover-info{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.cover-page .cover-info-item{text-align:center}
+.cover-page .cover-info-item .label{font-size:12px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.cover-page .cover-info-item .value{font-size:18px;font-weight:600;color:#fff}
+.cover-page .cover-desc{font-size:14px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 auto 36px}
+.cover-page .cover-btn{display:inline-block;padding:14px 48px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.4);border-radius:999px;color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:all .3s;text-decoration:none;backdrop-filter:blur(8px)}
+.cover-page .cover-btn:hover{background:rgba(255,255,255,.25);border-color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.cover-page .cover-footer{margin-top:50px;font-size:12px;color:rgba(255,255,255,.4)}
+/* In-page TOC */
+.toc-section{background:var(--card);padding:60px 40px;border-bottom:1px solid var(--border)}
+.toc-section .toc-header{text-align:center;margin-bottom:32px}
+.toc-section .toc-header h1{font-size:28px;color:var(--primary);border:none;display:inline-block;padding-bottom:8px;border-bottom:3px solid var(--primary)}
+.toc-section .toc-header p{font-size:14px;color:var(--text-muted);margin-top:8px}
+.toc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:800px;margin:0 auto}
+.toc-card{display:block;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;text-decoration:none;color:var(--text);transition:all .25s;position:relative;overflow:hidden}
+.toc-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--primary);transform:scaleY(0);transition:transform .25s;transform-origin:top}
+.toc-card:hover{border-color:var(--primary);box-shadow:0 4px 16px rgba(75,63,227,.1);transform:translateY(-2px)}
+.toc-card:hover::before{transform:scaleY(1)}
+.toc-card .toc-num{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.toc-card .toc-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
+.toc-card .toc-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+.toc-card .toc-subs{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+.toc-card .toc-sub-tag{font-size:11px;color:var(--text-muted);background:var(--bg);padding:2px 8px;border-radius:4px}
+/* Floating TOC button */
+#float-toc{position:fixed;right:20px;bottom:20px;width:48px;height:48px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(75,63,227,.3);z-index:90;transition:all .3s;opacity:0;pointer-events:none}
+#float-toc.show{opacity:1;pointer-events:auto}
+#float-toc:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(75,63,227,.4)}
+/* Main */
+#main{margin:0 auto;padding:0;max-width:1000px}
+.section{padding:40px 40px;border-bottom:1px solid var(--border)}
+.section h1{font-size:26px;color:var(--primary);margin-bottom:8px;padding-bottom:12px;border-bottom:3px solid var(--primary)}
+.section h2{font-size:20px;color:var(--text);margin:24px 0 12px;padding-left:12px;border-left:4px solid var(--primary)}
+.section h3{font-size:17px;color:var(--text);margin:20px 0 10px}
+.section h4{font-size:15px;color:var(--primary-dark);margin:16px 0 8px}
+.section p{margin-bottom:12px;line-height:1.8}
+.section ul,.section ol{margin:8px 0 16px 24px}
+.section li{margin-bottom:6px;line-height:1.7}
+.section table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+.section th,.section td{border:1px solid var(--border);padding:8px 12px;text-align:left}
+.section th{background:var(--primary);color:#fff;font-weight:600}
+.section tr:nth-child(even){background:#fafafa}
+.section tr:hover{background:var(--primary-light)}
+.note{background:#fff8e1;border-left:4px solid var(--warning);padding:12px 16px;margin:16px 0;border-radius:0 var(--radius) var(--radius) 0;font-size:14px}
+.tip{background:#e8f5e9;border-left:4px solid var(--success);padding:12px 16px;margin:16px 0;border-radius:0 var(--radius) var(--radius) 0;font-size:14px}
+.alert{background:#fce4ec;border-left:4px solid var(--danger);padding:12px 16px;margin:16px 0;border-radius:0 var(--radius) var(--radius) 0;font-size:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.card h3{color:var(--primary);margin-top:0}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.pros-cons>div{padding:16px;border-radius:var(--radius)}
+.pros{background:#e8f5e9;border:1px solid #a5d6a7}
+.cons{background:#fce4ec;border:1px solid #ef9a9a}
+.pros h4{color:#2e7d32;margin:0 0 8px}.cons h4{color:#c62828;margin:0 0 8px}
+.pros li,.cons li{margin-bottom:4px;font-size:14px}
+.formula{background:#f5f5f7;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin:12px 0;font-family:"Courier New",monospace;font-size:14px;text-align:center}
+/* Daily Plan */
+#daily-plan{background:#fff}
+.date-nav{position:sticky;top:0;background:#fff;padding:16px 40px;border-bottom:1px solid var(--border);z-index:50;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.date-nav button{padding:8px 16px;border:1px solid var(--border);background:var(--card);border-radius:var(--radius);cursor:pointer;font-size:14px;transition:all .2s}
+.date-nav button:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.date-nav .current-date{font-size:18px;font-weight:700;color:var(--primary);min-width:200px}
+.date-nav input[type="date"]{padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px}
+.phase-badge{padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;color:#fff}
+.progress-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:16px 40px;background:#fafafa}
+.progress-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.progress-card .label{font-size:12px;color:var(--text-muted);margin-bottom:4px}
+.progress-card .value{font-size:24px;font-weight:700;color:var(--primary)}
+.progress-bar{width:100%;height:8px;background:#e0e0e0;border-radius:4px;margin-top:8px;overflow:hidden}
+.progress-fill{height:100%;background:var(--success);border-radius:4px;transition:width .3s}
+.schedule-list{padding:0 40px 40px}
+.schedule-item{display:flex;align-items:flex-start;gap:16px;padding:14px 16px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;transition:all .2s;cursor:pointer;background:#fff}
+.schedule-item:hover{border-color:var(--primary);box-shadow:0 2px 8px rgba(75,63,227,.1)}
+.schedule-item.checked{background:#f1f8f4;border-color:var(--success)}
+.schedule-item.checked .check-btn{background:var(--success);color:#fff;border-color:var(--success)}
+.schedule-time{min-width:120px;font-weight:600;color:var(--primary);font-size:14px;font-variant-numeric:tabular-nums}
+.schedule-content{flex:1}
+.schedule-content .title{font-weight:600;font-size:15px;margin-bottom:2px}
+.schedule-content .desc{font-size:13px;color:var(--text-muted);line-height:1.5}
+.schedule-cat{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-left:8px}
+.cat-专业课{background:#e3f2fd;color:#1565c0}
+.cat-英语{background:#fce4ec;color:#c62828}
+.cat-政治{background:#e8f5e9;color:#2e7d32}
+.cat-体测{background:#fff3e0;color:#e65100}
+.cat-休息{background:#f3e5f5;color:#6a1b9a}
+.cat-工作{background:#e0f2f1;color:#00695c}
+.cat-复试{background:#ede7f6;color:#4527a0}
+.check-btn{width:32px;height:32px;border:2px solid var(--border);border-radius:50%;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .2s}
+.check-btn:hover{border-color:var(--success)}
+.checked .check-btn::after{content:"✓";color:#fff;font-weight:700}
+/* Phase Info */
+.phase-info{margin:24px 40px 40px;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.phase-info-header{padding:12px 20px;color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.phase-info-header .icon{font-size:18px}
+.phase-info-body{padding:20px;background:var(--card)}
+.phase-info-section{margin-bottom:16px}
+.phase-info-section:last-child{margin-bottom:0}
+.phase-info-section h4{font-size:14px;color:var(--primary);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.phase-info-section h4::before{content:"";display:inline-block;width:3px;height:14px;background:var(--primary);border-radius:2px}
+.phase-info-section ul{margin:0 0 0 20px;padding:0}
+.phase-info-section li{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:4px}
+.phase-info-section .phase-goal{background:var(--primary-light);border-radius:var(--radius);padding:12px 16px;font-size:13px;color:var(--primary-dark);line-height:1.7}
+.phase-info-section .phase-warn{background:#fff8e1;border-left:3px solid var(--warning);border-radius:0 var(--radius) var(--radius) 0;padding:10px 14px;font-size:12px;color:#8d6e63;line-height:1.6;margin-top:8px}
+.phase-info-section .phase-danger{background:#fce4ec;border-left:3px solid var(--danger);border-radius:0 var(--radius) var(--radius) 0;padding:10px 14px;font-size:12px;color:#c62828;line-height:1.6;margin-top:8px}
+.phase-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.phase-info-grid .phase-stat{background:var(--bg);border-radius:var(--radius);padding:10px 14px;text-align:center}
+.phase-info-grid .phase-stat .stat-label{font-size:11px;color:var(--text-muted);margin-bottom:2px}
+.phase-info-grid .phase-stat .stat-value{font-size:16px;font-weight:700;color:var(--primary)}
+.week-nav{display:flex;gap:4px;padding:8px 40px;flex-wrap:wrap;background:#fafafa;border-bottom:1px solid var(--border)}
+.week-nav button{padding:4px 10px;border:1px solid var(--border);background:#fff;border-radius:4px;cursor:pointer;font-size:12px;transition:all .2s}
+.week-nav button:hover{background:var(--primary-light)}
+.week-nav button.today{background:var(--primary);color:#fff;border-color:var(--primary)}
+/* Responsive */
+@media(max-width:768px){
+  .section{padding:16px}
+  .cover-page h1{font-size:28px;letter-spacing:2px}
+  .cover-page .cover-subtitle{font-size:14px;letter-spacing:2px}
+  .cover-page .cover-info{gap:16px}
+  .cover-page .cover-info-item .value{font-size:14px}
+  .cover-page .cover-btn{padding:12px 32px;font-size:14px}
+  .toc-grid{grid-template-columns:1fr}
+  .toc-section{padding:24px 12px}
+  .toc-card{padding:14px 16px}
+  .pros-cons{grid-template-columns:1fr}
+  .progress-overview{grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px}
+  .progress-card{padding:10px 8px}
+  .progress-card .label{font-size:11px}
+  .progress-card .value{font-size:18px}
+  .schedule-list{padding:0 12px 16px}
+  .date-nav{padding:10px 12px;gap:6px}
+  .date-nav button{padding:8px 12px;font-size:13px}
+  .date-nav .current-date{font-size:15px;min-width:0;flex:1;text-align:center}
+  .date-nav input[type="date"]{font-size:13px;padding:4px 8px}
+  .data-port-btn{padding:8px 12px!important;font-size:13px!important;background:#f0f0f0!important;border:1px solid var(--border)!important;border-radius:var(--radius)!important}
+  .schedule-item{padding:12px;gap:10px;margin-bottom:8px}
+  .schedule-time{min-width:70px;font-size:11px;line-height:1.4}
+  .schedule-content .title{font-size:14px}
+  .schedule-content .desc{font-size:12px;line-height:1.5}
+  .check-btn{width:36px;height:36px;font-size:18px}
+  .week-nav{padding:6px 8px;gap:2px}
+  .week-nav button{width:36px!important;height:36px!important;font-size:12px!important}
+  #float-toc{width:44px;height:44px;font-size:18px;right:12px;bottom:12px}
+  .phase-info{margin:12px}
+  .phase-info-grid{grid-template-columns:1fr 1fr}
+  .phase-info-section h4{font-size:14px}
+  .phase-info-section ul li{font-size:13px;line-height:1.6}
+  .schedule-cat{font-size:10px!important;padding:1px 6px!important}
+  .clear-btn{font-size:12px;padding:6px 12px}
+  table{font-size:12px}
+  th,td{padding:6px 8px}
+  h1{font-size:22px}
+  h2{font-size:18px}
+  h3{font-size:15px}
+}
+/* Print */
+@media print{
+  .cover-page{min-height:auto;padding:40px 20px}
+  .cover-page::before{display:none}
+  .toc-section{page-break-after:always}
+  .date-nav,.progress-overview,.week-nav{display:none}
+  .schedule-item{break-inside:avoid}
+  #float-toc{display:none}
+}
+/* Source links */
+.source-list{list-style:none;margin:0;padding:0}
+.source-list li{padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.source-list a{color:var(--accent);text-decoration:none;word-break:break-all}
+.source-list a:hover{text-decoration:underline}
+.source-cat{font-weight:700;color:var(--primary);font-size:14px;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<!-- Cover Page -->
+<div class="cover-page" id="cover">
+<div class="cover-inner">
+<div class="cover-badge">2027 考研备考</div>
+<h1>备考全计划</h1>
+<div class="cover-subtitle">考研 · 竞赛 · 体测 · 四级</div>
+<div class="cover-info">
+<div class="cover-info-item"><div class="label">目标院校</div><div class="value">陕西师范大学</div></div>
+<div class="cover-info-item"><div class="label">报考专业</div><div class="value">070100 数学（学硕）</div></div>
+<div class="cover-info-item"><div class="label">备考周期</div><div class="value">264天</div></div>
+</div>
+<p class="cover-desc">从2026年8月11日至2027年4月30日，涵盖考研初试、全国大学生数学竞赛、体测提升、英语四级、复试面试等全部备考内容的详细计划。每日精确到时间段，可逐项打卡追踪进度。</p>
+<a href="#toc" class="cover-btn">查看目录 ↓</a>
+<div class="cover-footer">
+<p>生成日期：2026年8月10日 | 计划起始：2026年8月11日 | 计划终止：2027年4月30日</p>
+</div>
+</div>
+</div>
+
+<!-- In-page Table of Contents -->
+<div class="toc-section" id="toc">
+<div class="toc-header">
+<h1>目 录</h1>
+<p>点击任意卡片快速跳转到对应章节</p>
+</div>
+<div class="toc-grid">
+<a href="#sec-employment" class="toc-card toc-link">
+<div class="toc-num">第一章</div>
+<div class="toc-title">数学专业就业形势分析</div>
+<div class="toc-desc">本科与研究生就业方向、薪资对比、职业发展路径</div>
+<div class="toc-subs"><span class="toc-sub-tag">整体概况</span><span class="toc-sub-tag">本科生就业</span><span class="toc-sub-tag">研究生就业</span><span class="toc-sub-tag">优劣对比</span></div>
+</a>
+<a href="#sec-snnu" class="toc-card toc-link">
+<div class="toc-num">第二章</div>
+<div class="toc-title">陕西师范大学考研信息</div>
+<div class="toc-desc">历年分数线、考试科目、参考书目、复试方案</div>
+<div class="toc-subs"><span class="toc-sub-tag">分数线</span><span class="toc-sub-tag">参考书目</span><span class="toc-sub-tag">复试信息</span><span class="toc-sub-tag">时间线</span></div>
+</a>
+<a href="#sec-subjects" class="toc-card toc-link">
+<div class="toc-num">第三章</div>
+<div class="toc-title">考研各科目复习规划</div>
+<div class="toc-desc">数学分析、高等代数、考研英语、考研政治的复习方案与时间安排</div>
+<div class="toc-subs"><span class="toc-sub-tag">数学分析</span><span class="toc-sub-tag">高等代数</span><span class="toc-sub-tag">考研英语</span><span class="toc-sub-tag">考研政治</span></div>
+</a>
+<a href="#sec-paths" class="toc-card toc-link">
+<div class="toc-num">第四章</div>
+<div class="toc-title">路径选择与行动方案</div>
+<div class="toc-desc">全职考研、直接就业、双线并行三条路径及后路规划</div>
+<div class="toc-subs"><span class="toc-sub-tag">路径A/B/C</span><span class="toc-sub-tag">后路与补救</span><span class="toc-sub-tag">时间表</span></div>
+</a>
+<a href="#sec-daily" class="toc-card toc-link">
+<div class="toc-num">第五章</div>
+<div class="toc-title">每日详细计划（打卡）</div>
+<div class="toc-desc">六大阶段每日时间表，8:00-24:00精确到每个时间段</div>
+<div class="toc-subs"><span class="toc-sub-tag">每日打卡</span><span class="toc-sub-tag">进度追踪</span><span class="toc-sub-tag">快捷跳转</span></div>
+</a>
+<a href="#sec-pe" class="toc-card toc-link">
+<div class="toc-num">第六章</div>
+<div class="toc-title">体测提升计划</div>
+<div class="toc-desc">成绩分析、立定跳远/1000米训练方案、每日训练安排</div>
+<div class="toc-subs"><span class="toc-sub-tag">分数计算</span><span class="toc-sub-tag">提分方案</span><span class="toc-sub-tag">训练计划</span></div>
+</a>
+<a href="#sec-cet4" class="toc-card toc-link">
+<div class="toc-num">第七章</div>
+<div class="toc-title">四级备考计划</div>
+<div class="toc-desc">现状分析、听力训练、写作模板、倒计时计划</div>
+<div class="toc-subs"><span class="toc-sub-tag">政策解读</span><span class="toc-sub-tag">听力专项</span><span class="toc-sub-tag">写作模板</span></div>
+</a>
+<a href="#sec-sources" class="toc-card toc-link">
+<div class="toc-num">第八章</div>
+<div class="toc-title">参考来源</div>
+<div class="toc-desc">所有官方链接汇总，可点击验证</div>
+<div class="toc-subs"><span class="toc-sub-tag">陕师大研招</span><span class="toc-sub-tag">四级官网</span><span class="toc-sub-tag">体测标准</span></div>
+</a>
+<a href="#cover" class="toc-card toc-link" style="display:flex;align-items:center;justify-content:center;text-align:center;border-style:dashed">
+<div class="toc-title" style="font-size:14px;color:var(--text-muted)">↑ 返回封面</div>
+</a>
+</div>
+</div>
+
+<!-- Floating TOC Button -->
+<button id="float-toc" title="返回目录">目录</button>
+
+<!-- Main Content -->
+<main id="main">
+
+<!-- Section 1: Employment Analysis -->
+<section class="section" id="sec-employment">
+<h1>一、数学专业就业形势分析</h1>
+
+<h2 id="sec-employment-overview">1.1 整体就业概况</h2>
+<p>根据麦可思研究院发布的《2026年中国本科生就业报告》，数学与应用数学专业就业满意度达到 <strong>87%</strong>，位列2025届本科就业满意度TOP20榜单第7名，远高于全国平均的81%。<a href="http://m.163.com/dy/article/KV83TLDV05218435.html" target="_blank">[来源]</a></p>
+<p>2025届本科生毕业半年后全国平均月收入为 <strong>6435元</strong>。数学类专业毕业生约 <strong>28%</strong> 进入中小学教育系统，超过 <strong>70%</strong> 分布在互联网、金融、咨询、政府机关等行业。</p>
+
+<div class="card">
+<h3>数学专业主要就业方向</h3>
+<table>
+<tbody><tr><th>方向</th><th>占比</th><th>典型岗位</th><th>薪资范围（月薪）</th></tr>
+<tr><td>教育行业</td><td>~28%</td><td>中小学教师、教研、教培</td><td>6K-15K</td></tr>
+<tr><td>互联网/科技</td><td>~20%</td><td>算法工程师、数据分析师、AI</td><td>12K-25K</td></tr>
+<tr><td>金融/量化</td><td>~15%</td><td>风控、量化交易、精算</td><td>10K-30K</td></tr>
+<tr><td>体制内</td><td>~10%</td><td>统计局、审计署、公务员</td><td>6K-12K</td></tr>
+<tr><td>继续深造</td><td>~20%</td><td>读研/读博</td><td>—</td></tr>
+<tr><td>其他</td><td>~7%</td><td>咨询、运营、跨界岗位</td><td>8K-18K</td></tr>
+</tbody></table>
+</div>
+
+<h2 id="sec-employment-ug">1.2 本科生就业形势</h2>
+<div class="pros-cons">
+<div class="pros">
+<h4>优势</h4>
+<ul>
+<li>数学基础扎实，逻辑思维强，跨行业适应性好</li>
+<li>教育行业需求稳定，教师岗位长期存在</li>
+<li>可报考公务员、事业单位（统计局等）</li>
+<li>大数据、AI时代对数理人才需求增长</li>
+<li>就业满意度高达87%，高于全国平均</li>
+</ul>
+</div>
+<div class="cons">
+<h4>劣势</h4>
+<ul>
+<li>高端技术岗位（算法、量化）普遍要求硕士及以上</li>
+<li>本科对口岗位多为基础教育、数据文员等，起薪偏低</li>
+<li>教师编制考试竞争日趋激烈</li>
+<li>双减政策后校外学科培训空间收窄</li>
+<li>学龄人口减少，教育岗位供给趋紧（2026年湖北教师招聘减少52.8%）<a href="https://www.inewsweek.cn/survey/2026-07-07/30976.shtml" target="_blank">[来源]</a></li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>本科生就业具体场景</h3>
+<h4>场景1：公立学校教师</h4>
+<p>需考取教师资格证+编制考试。数学是核心主科，需求长期存在，但编制竞争激烈。2026年人社部、教育部联合发文，教师招聘年龄放宽至38周岁<a href="http://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202604/t20260422_1434524.html" target="_blank">[来源]</a>。公立学校教师年薪约8-15万，职称晋升空间大。</p>
+<h4>场景2：教培行业</h4>
+<p>双减政策持续收紧，学科类培训受严格限制<a href="http://www.moe.gov.cn/jyb_xxgk/xxgk/zhengce/guizhang/202309/t20230912_1079802.html" target="_blank">[来源]</a>。但"数学思维训练"课程市场增长迅速，2025年市场规模突破180亿元，年均复合增长率22%。奥数教练岗位需要高水平专业能力，适合有竞赛背景的毕业生。</p>
+<h4>场景3：数据分析/算法助理</h4>
+<p>数学本科+编程技能（Python/SQL）可投递银行、互联网数据岗。北上深杭地区起薪集中在12K-22K。但核心算法研发岗普遍要求硕士及以上学历。</p>
+<h4>场景4：金融行业</h4>
+<p>银行基层网点、保险精算助理、风控初筛等岗位可投递。但高端量化、核心研发岗要求硕士及以上。</p>
+</div>
+
+<h2 id="sec-employment-gr">1.3 研究生就业形势</h2>
+<div class="pros-cons">
+<div class="pros">
+<h4>优势</h4>
+<ul>
+<li>就业层级显著提升，可进入企业核心算法研发岗</li>
+<li>高端金融量化、高校教职、科研院所等优质岗位</li>
+<li>陕师大研究生约60%进入地方重点中学<a href="https://www.applysquare.com/topic-cn/2R7QTZcrwuE/" target="_blank">[来源]</a></li>
+<li>25%进入科研院所，15%进入高校任教</li>
+<li>薪资天花板更高，硕士起薪普遍高于本科30%-50%</li>
+<li>体制内岗位（高校、研究所）更偏好研究生学历</li>
+</ul>
+</div>
+<div class="cons">
+<h4>劣势</h4>
+<ul>
+<li>需要额外2-3年时间成本</li>
+<li>考研本身存在失败风险</li>
+<li>读研期间机会成本（工资收入+工作经验）</li>
+<li>部分方向研究生就业面反而变窄（过度专业化）</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>研究生就业具体场景（以陕师大数学为例）</h3>
+<h4>场景1：重点中学教师（最主要去向，约60%）</h4>
+<p>陕师大作为教育部直属师范大学，在中西部基础教育领域就业优势明显。研究生学历+竞赛获奖经历在重点中学招聘中极具竞争力。年薪10-20万，职业稳定且社会地位高。</p>
+<h4>场景2：高校教职/科研院所（约25%）</h4>
+<p>可进入地方高校任教或科研院所从事数理研究。通常需要博士学历才能进入985/211高校，但硕士可进入地方本科院校或高职高专。</p>
+<h4>场景3：算法/数据科学岗（约10%）</h4>
+<p>应用数学、计算数学方向研究生可进入互联网大厂、AI公司从事算法研发。起薪15K-30K，是薪资最高的方向。</p>
+<h4>场景4：继续读博（约5%）</h4>
+<p>基础数学方向可选择继续攻读博士，为未来进入高校或研究所做准备。</p>
+</div>
+
+<h2 id="sec-employment-compare">1.4 本科vs研究生就业优劣对比</h2>
+<table>
+<tbody><tr><th>维度</th><th>本科直接就业</th><th>研究生就业</th></tr>
+<tr><td>就业层级</td><td>基础教育、基层岗位</td><td>重点中学、高校、核心研发</td></tr>
+<tr><td>起薪水平</td><td>6K-12K</td><td>10K-25K</td></tr>
+<tr><td>职业天花板</td><td>中低（受学历限制）</td><td>高（可触达高端岗位）</td></tr>
+<tr><td>时间成本</td><td>0年（立即就业）</td><td>2-3年</td></tr>
+<tr><td>经济成本</td><td>0（开始赚钱）</td><td>学费+生活费（但有奖助学金）</td></tr>
+<tr><td>竞争程度</td><td>激烈（本科生供给大）</td><td>相对缓和（研究生供给少）</td></tr>
+<tr><td>稳定性</td><td>中（合同制为主）</td><td>高（编制/教职概率更大）</td></tr>
+<tr><td>发展潜力</td><td>中（需后续提升）</td><td>高（学历天花板打开）</td></tr>
+</tbody></table>
+
+<div class="tip">
+<strong>核心结论：</strong>考研本身就是为了找工作——但读研后你能触达的就业层级（重点中学、算法岗、高校教职）普遍高于本科直接进入教培或基层岗位。用读研两年换取更高的就业起点，在数学专业是高性价比选择。
+</div>
+</section>
+
+<!-- Section 2: SNNU Info -->
+<section class="section" id="sec-snnu">
+<h1>二、陕西师范大学考研信息</h1>
+
+<h2>2.1 学校与学院概况</h2>
+<p>陕西师范大学是教育部直属重点师范大学，"211工程"重点建设高校。数学学科在教育部第五轮学科评估中获评 <strong>B+</strong>，稳居全国前20%-25%，是西北地区数学学科实力最强的高校之一。拥有数学一级学科博士点、博士后流动站，本硕博培养体系完整。</p>
+
+<h2 id="sec-snnu-scores">2.2 历年复试分数线</h2>
+<div class="card">
+<h3>070100数学（学术学位）近四年复试分数线</h3>
+<table>
+<tbody><tr><th>年份</th><th>总分线</th><th>政治/外语（≥100分）</th><th>专业课（≥150分）</th><th>统考招生人数</th></tr>
+<tr><td>2023年</td><td><strong>365</strong></td><td>≥38</td><td>≥57</td><td>37人</td></tr>
+<tr><td>2024年</td><td><strong>364</strong></td><td>≥41</td><td>≥62</td><td>37人</td></tr>
+<tr><td>2025年</td><td><strong>324</strong></td><td>≥34</td><td>≥51</td><td>22人</td></tr>
+<tr><td>2026年</td><td><strong>339</strong></td><td>≥35</td><td>≥53</td><td><strong>35人（扩招）</strong></td></tr>
+</tbody></table>
+<p style="font-size:13px;color:var(--text-muted)">数据来源：<a href="http://yz.snnu.edu.cn/info/1008/7951.htm" target="_blank">陕西师范大学研究生招生信息网</a> | <a href="http://yz.snnu.edu.cn/ss26-014.pdf" target="_blank">2026年复试分数线PDF</a></p>
+</div>
+
+<div class="note">
+<strong>2026年关键变化：</strong>统考招生计划35人，较2025年的22人增加13人，是近年最大扩招。这意味着报考机会显著提升。但注意：实际录取最低分通常高于复试线10-20分，竞争并未真正减弱。
+</div>
+
+<div class="card">
+<h3>其他相关专业分数线（2026年）</h3>
+<table>
+<tbody><tr><th>专业代码</th><th>专业名称</th><th>总分线</th><th>招生计划</th></tr>
+<tr><td>070100</td><td>数学（学硕）</td><td>339</td><td>35人</td></tr>
+<tr><td>071400</td><td>统计学</td><td>275</td><td>5人</td></tr>
+<tr><td>025200</td><td>应用统计（专硕）</td><td>337</td><td>27人</td></tr>
+<tr><td>045104</td><td>学科教学（数学）</td><td>382</td><td>35人</td></tr>
+</tbody></table>
+</div>
+
+<h2 id="sec-snnu-subjects">2.3 考试科目与参考书目</h2>
+<div class="card">
+<h3>初试考试科目</h3>
+<table>
+<tbody><tr><th>科目代码</th><th>科目名称</th><th>满分</th></tr>
+<tr><td>①101</td><td>思想政治理论</td><td>100</td></tr>
+<tr><td>②201</td><td>英语一</td><td>100</td></tr>
+<tr><td>③726</td><td>数学分析</td><td>150</td></tr>
+<tr><td>④826</td><td>高等代数</td><td>150</td></tr>
+<tr><td colspan="2"><strong>总分</strong></td><td><strong>500</strong></td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>官方参考书目</h3>
+<table>
+<tbody><tr><th>科目</th><th>参考书目</th></tr>
+<tr><td>726数学分析</td><td>华东师范大学数学系编《数学分析》上下册（第四版），高等教育出版社，2010版</td></tr>
+<tr><td>826高等代数</td><td>①北京大学数学系编《高等代数》（第四版），高等教育出版社，2013版</td></tr>
+<tr><td></td><td>②李志慧，李永明《高等代数中的典型问题与方法》（第二版），科学出版社，2016版</td></tr>
+</tbody></table>
+<p style="font-size:13px;color:var(--text-muted)">考试大纲：<a href="https://yz.snnu.edu.cn/info/1127/1430.htm" target="_blank">726数学分析大纲</a> | <a href="https://yz.snnu.edu.cn/info/1127/1432.htm" target="_blank">826高等代数大纲</a> | <a href="https://yz.snnu.edu.cn/ksdg.htm" target="_blank">大纲汇总</a></p>
+</div>
+
+<div class="card">
+<h3>目标分数拆解</h3>
+<table>
+<tbody><tr><th>科目</th><th>满分</th><th>目标分数</th><th>保底分数</th><th>说明</th></tr>
+<tr><td>726数学分析</td><td>150</td><td>120-130</td><td>100</td><td>基础扎实，竞赛训练加持</td></tr>
+<tr><td>826高等代数</td><td>150</td><td>120-130</td><td>100</td><td>基础扎实，竞赛训练加持</td></tr>
+<tr><td>201英语一</td><td>100</td><td>55-65</td><td>50</td><td>弱项，需重点突破</td></tr>
+<tr><td>101政治</td><td>100</td><td>65-70</td><td>60</td><td>零基础，需系统学习</td></tr>
+<tr><td><strong>总分</strong></td><td><strong>500</strong></td><td><strong>360-395</strong></td><td><strong>310</strong></td><td>高于2026年复试线339</td></tr>
+</tbody></table>
+</div>
+
+<h2 id="sec-snnu-fushi">2.4 复试信息</h2>
+<div class="card">
+<h3>复试内容（2026年方案）</h3>
+<p>来源：<a href="http://maths.snnu.edu.cn/info/1041/17878.htm" target="_blank">数学与统计学院2026年复试工作方案</a></p>
+<table>
+<tbody><tr><th>项目</th><th>分值</th><th>说明</th></tr>
+<tr><td>综合素质考核及心理健康测评</td><td>合格/不合格</td><td>一票否决制</td></tr>
+<tr><td>专业综合笔试</td><td>150分</td><td>低于90分不合格</td></tr>
+<tr><td>专业综合面试</td><td>100分</td><td>低于60分不合格</td></tr>
+<tr><td>外语听力及口语测试</td><td>50分</td><td>—</td></tr>
+<tr><td><strong>复试总分</strong></td><td><strong>300分</strong></td><td>—</td></tr>
+</tbody></table>
+<p><strong>综合成绩计算：</strong>综合成绩 = 初试成绩（百分制）× 50% + 复试成绩（百分制）× 50%</p>
+</div>
+
+<div class="card">
+<h3>复试笔试科目（基础数学等方向）</h3>
+<table>
+<tbody><tr><th>科目</th><th>分值</th><th>参考教材</th></tr>
+<tr><td>近世代数</td><td>40分</td><td>张禾瑞《近世代数》（修订本），高等教育出版社</td></tr>
+<tr><td>常微分方程</td><td>40分</td><td>东北师范大学《常微分方程》第二版，高等教育出版社</td></tr>
+<tr><td>实变函数</td><td>35分</td><td>曹怀信《实变函数引论》，陕西师范大学出版总社</td></tr>
+<tr><td>概率论</td><td>35分</td><td>茆诗松等《概率论与数理统计教程》第二版，高等教育出版社</td></tr>
+</tbody></table>
+<p style="font-size:13px;color:var(--text-muted)">来源：<a href="http://maths.snnu.edu.cn/info/1037/2812.htm" target="_blank">数学与信息科学学院复试内容及参考书目</a></p>
+</div>
+
+<h2>2.5 2027年考研时间线（预估）</h2>
+<div class="card">
+<table>
+<tbody><tr><th>时间节点</th><th>事项</th><th>说明</th></tr>
+<tr><td>2026年9月中下旬</td><td>网上咨询周</td><td>研招网开放咨询</td></tr>
+<tr><td>2026年9月24-27日</td><td><strong>网上预报名</strong></td><td>每日9:00-22:00</td></tr>
+<tr><td>2026年10月8-25日</td><td><strong>网上正式报名</strong></td><td>每日9:00-22:00</td></tr>
+<tr><td>2026年11月上旬</td><td>网上确认</td><td>上传材料、缴费</td></tr>
+<tr><td>2026年12月中旬</td><td>准考证打印</td><td>考前10天左右</td></tr>
+<tr><td><strong>2026年12月19-21日</strong></td><td><strong>初试</strong></td><td>预计时间</td></tr>
+<tr><td>2027年2月中下旬</td><td>初试成绩公布</td><td>—</td></tr>
+<tr><td>2027年3月中旬</td><td>国家线公布</td><td>—</td></tr>
+<tr><td>2027年3月下旬-4月</td><td><strong>复试</strong></td><td>—</td></tr>
+</tbody></table>
+<p style="font-size:13px;color:var(--text-muted)">来源：<a href="https://yz.chsi.com.cn/" target="_blank">中国研究生招生信息网</a> | <a href="http://www.moe.gov.cn/srcsite/A15/moe_778/s3261/202509/t20250918_1413836.html" target="_blank">教育部2026年招生管理规定</a>（2027年以教育部正式公告为准）</p>
+</div>
+
+<div class="card">
+<h3>陕师大研招官方联系方式</h3>
+<p>电话：029-85310346 | 邮箱：yjsc4@snnu.edu.cn</p>
+<p>官网：<a href="http://yz.snnu.edu.cn/" target="_blank">http://yz.snnu.edu.cn/</a></p>
+<p>数学与统计学院：<a href="https://maths.snnu.edu.cn/" target="_blank">https://maths.snnu.edu.cn/</a></p>
+</div>
+</section>
+
+<!-- Section 3: Subject Review Plans -->
+<section class="section" id="sec-subjects">
+<h1>三、考研各科目复习规划</h1>
+<p>本章针对陕师大070100数学学硕初试的四门科目（726数学分析150分、826高等代数150分、201英语一100分、101政治100分），分别给出详细的复习方案、推荐资料、时间安排及理由。</p>
+
+<h2 id="sec-subj-analysis">3.1 数学分析复习规划（150分）</h2>
+<div class="card">
+<h3>考试概况</h3>
+<p>726数学分析是陕师大数学学硕初试的核心专业课，满分150分，考试时长3小时。根据<a href="https://yz.snnu.edu.cn/info/1127/1430.htm" target="_blank">官方考试大纲</a>，考查范围覆盖华东师大《数学分析》上下册全部内容。题型通常为：计算题（约40分）+证明题（约80分）+综合应用题（约30分）。</p>
+</div>
+
+<div class="card">
+<h3>复习阶段划分</h3>
+<table>
+<tbody><tr><th>阶段</th><th>时间</th><th>核心任务</th><th>每日时长</th><th>目标产出</th></tr>
+<tr><td>一轮基础</td><td>8月-9月</td><td>通读教材，做课后习题，建立知识框架</td><td>3-4h</td><td>教材例题+习题全部完成</td></tr>
+<tr><td>二轮强化</td><td>10月-11月</td><td>陕师大真题+其他高校真题，整理错题本</td><td>3h</td><td>近10年真题做2遍</td></tr>
+<tr><td>三轮冲刺</td><td>12月</td><td>回归基础，默写核心定理，模考训练</td><td>2-3h</td><td>核心公式无盲区</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>章节复习重点与理由</h3>
+<table>
+<tbody><tr><th>章节</th><th>重要程度</th><th>考查频率</th><th>复习理由</th><th>关键考点</th></tr>
+<tr><td>极限理论</td><td>★★★★★</td><td>每年必考</td><td>极限是数分的基础，$\varepsilon$-$\delta$语言是证明题的核心工具</td><td>数列极限、函数极限、Stolz定理、上下极限</td></tr>
+<tr><td>连续性</td><td>★★★★</td><td>高频</td><td>一致连续是证明大题的常考点，闭区间性质频繁出现</td><td>一致连续判定、间断点分类、介值定理应用</td></tr>
+<tr><td>微分中值定理</td><td>★★★★★</td><td>每年必考</td><td>罗尔、拉格朗日、柯西中值定理是证明题的"万能工具"</td><td>构造辅助函数、泰勒公式应用、导数不等式</td></tr>
+<tr><td>积分学</td><td>★★★★</td><td>高频</td><td>定积分计算+反常积分收敛判别是计算题主力</td><td>定积分技巧、反常积分判别法、含参量积分</td></tr>
+<tr><td>级数</td><td>★★★★★</td><td>每年必考</td><td>数项级数+函数项级数+幂级数+傅里叶级数，分值占比大</td><td>收敛判别法、一致收敛、幂级数求和、傅里叶展开</td></tr>
+<tr><td>多元函数</td><td>★★★★</td><td>高频</td><td>偏导数+隐函数+重积分+曲线曲面积分，计算量大</td><td>隐函数定理、多元极值、Green公式、Gauss公式</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>推荐资料</h3>
+<table>
+<tbody><tr><th>资料</th><th>用途</th><th>说明</th></tr>
+<tr><td>华东师大《数学分析》上下册（第四版）</td><td>教材精读</td><td>官方指定参考书，例题和课后习题必须全部做</td></tr>
+<tr><td>陕师大726历年真题（2015-2026）</td><td>真题训练</td><td>最重要！至少做3遍，分析出题规律</td></tr>
+<tr><td>裴礼文《数学分析中的典型问题与方法》</td><td>强化提升</td><td>竞赛+考研通用，证明题技巧全面</td></tr>
+<tr><td>谢惠民《数学分析习题课讲义》</td><td>拔高训练</td><td>难度高于考研，适合冲刺阶段选做</td></tr>
+<tr><td>全国大学生数学竞赛真题</td><td>以赛代练</td><td>竞赛初赛数分占50%，与考研高度重叠</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>复习理由</h3>
+<div class="tip">
+<p><strong>为什么数学分析是投入时间最长的科目？</strong></p>
+<p>数分满分150分，占总分的30%，且你的基础相对扎实（竞赛训练加持），是提分效率最高的科目。目标分数120-130分，意味着只允许丢20-30分，这要求对每个章节都不能有明显短板。陕师大数分出题风格偏重证明，与竞赛训练高度重叠，"一份备考覆盖两场考试"是最大的效率优势。</p>
+</div>
+</div>
+
+<h2 id="sec-subj-algebra">3.2 高等代数复习规划（150分）</h2>
+<div class="card">
+<h3>考试概况</h3>
+<p>826高等代数同样是核心专业课，满分150分，考试时长3小时。根据<a href="https://yz.snnu.edu.cn/info/1127/1432.htm" target="_blank">官方考试大纲</a>，考查范围覆盖北大《高等代数》全部内容。题型通常为：计算题（约50分）+证明题（约70分）+综合推导题（约30分）。</p>
+</div>
+
+<div class="card">
+<h3>复习阶段划分</h3>
+<table>
+<tbody><tr><th>阶段</th><th>时间</th><th>核心任务</th><th>每日时长</th><th>目标产出</th></tr>
+<tr><td>一轮基础</td><td>8月-9月</td><td>通读教材，做课后习题，建立知识框架</td><td>2-3h</td><td>教材例题+习题全部完成</td></tr>
+<tr><td>二轮强化</td><td>10月-11月</td><td>陕师大真题+竞赛专项，整理错题本</td><td>2-3h</td><td>近10年真题做2遍</td></tr>
+<tr><td>三轮冲刺</td><td>12月</td><td>回归基础，默写核心定理，模考训练</td><td>2h</td><td>核心结论无盲区</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>章节复习重点与理由</h3>
+<table>
+<tbody><tr><th>章节</th><th>重要程度</th><th>考查频率</th><th>复习理由</th><th>关键考点</th></tr>
+<tr><td>多项式</td><td>★★★</td><td>中频</td><td>整除、最大公因式是基础，有理系数多项式可出综合题</td><td>整除判定、不可约多项式、Eisenstein判别法</td></tr>
+<tr><td>行列式</td><td>★★★</td><td>中频</td><td>计算技巧是基础工具，克拉默法则常用于综合题</td><td>行列式计算技巧、 Vandermonde行列式</td></tr>
+<tr><td>线性方程组</td><td>★★★</td><td>中频</td><td>解的结构理论是线性空间理论的应用基础</td><td>基础解系、解的结构、矩阵秩的性质</td></tr>
+<tr><td>矩阵</td><td>★★★★</td><td>高频</td><td>矩阵运算是高代的"通用语言"，几乎每题都涉及</td><td>逆矩阵、秩、初等变换、分块矩阵</td></tr>
+<tr><td>二次型</td><td>★★★★</td><td>高频</td><td>标准形+正定判定是计算题常客，综合推导题也常考</td><td>标准形、规范形、正定判定、惯性定理</td></tr>
+<tr><td>线性空间</td><td>★★★★★</td><td>每年必考</td><td>基与维数、子空间、直和是证明题的核心</td><td>基变换、坐标变换、子空间交与和、直和分解</td></tr>
+<tr><td>线性变换</td><td>★★★★★</td><td>每年必考</td><td>特征值、对角化、Jordan标准形是重中之重</td><td>矩阵表示、特征值特征向量、对角化条件、Jordan形</td></tr>
+<tr><td>欧几里得空间</td><td>★★★★</td><td>高频</td><td>正交变换+对称变换是证明题常客</td><td>内积、正交化、正交变换、对称矩阵的正交对角化</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>推荐资料</h3>
+<table>
+<tbody><tr><th>资料</th><th>用途</th><th>说明</th></tr>
+<tr><td>北大《高等代数》（第四版）</td><td>教材精读</td><td>官方指定参考书，例题和课后习题必须全部做</td></tr>
+<tr><td>李志慧、李永明《高等代数中的典型问题与方法》</td><td>官方指定补充</td><td>陕师大老师编写，针对性极强</td></tr>
+<tr><td>陕师大826历年真题（2015-2026）</td><td>真题训练</td><td>最重要！至少做3遍</td></tr>
+<tr><td>丘维声《高等代数学习指导书》</td><td>强化提升</td><td>习题丰富，适合二轮刷题</td></tr>
+<tr><td>全国大学生数学竞赛真题</td><td>以赛代练</td><td>竞赛初赛高代占35%</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>复习理由</h3>
+<div class="tip">
+<p><strong>为什么高等代数要特别重视李志慧的教材？</strong></p>
+<p>李志慧、李永明《高等代数中的典型问题与方法》是陕师大官方指定的补充参考书，李志慧老师本身就是陕师大数学与信息科学学院的教师。这本书的习题风格与826真题高度一致，很多真题的命题思路直接来源于此书。精做此书等于提前"摸底"出题风格。</p>
+</div>
+<div class="note">
+<p><strong>数分与高代的协同复习策略：</strong>两门专业课每天交替进行（上午数分下午高代，或反之），避免疲劳。竞赛初赛数分占50%+高代占35%，竞赛训练就是在复习考研专业课，不需要额外花时间。</p>
+</div>
+</div>
+
+<h2 id="sec-subj-english">3.3 考研英语（英语一）复习规划（100分）</h2>
+<div class="card">
+<h3>考试概况</h3>
+<p>201英语一满分100分，考试时长3小时。题型：完形填空（10分）+阅读理解A（40分）+阅读理解B新题型（10分）+翻译（15分）+小作文（10分）+大作文（15分）。陕师大2026年英语单科线$\geq$35分，目标50-65分。</p>
+</div>
+
+<div class="card">
+<h3>复习阶段划分</h3>
+<table>
+<tbody><tr><th>阶段</th><th>时间</th><th>核心任务</th><th>每日时长</th><th>目标产出</th></tr>
+<tr><td>零基础起步</td><td>8月</td><td>背单词+语法长难句入门</td><td>2h</td><td>1050词+长难句8讲</td></tr>
+<tr><td>阅读专项</td><td>9月-10月</td><td>真题阅读精做（三遍精读法）</td><td>2h</td><td>2006-2020阅读做完</td></tr>
+<tr><td>全科强化</td><td>11月</td><td>新题型+翻译+作文模板</td><td>1.5-2h</td><td>模板定稿+模考</td></tr>
+<tr><td>冲刺默写</td><td>12月</td><td>作文默写+错题复盘+模考</td><td>1.5h</td><td>模板5分钟默写</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>各题型复习方案与理由</h3>
+<table>
+<tbody><tr><th>题型</th><th>分值</th><th>复习方案</th><th>目标分数</th><th>理由</th></tr>
+<tr><td>阅读理解A</td><td>40分</td><td>2006-2025真题每篇做3遍：第一遍限时做题（17-19min），第二遍逐句翻译，第三遍分析选项逻辑</td><td>24-28分</td><td>分值最高，提分空间最大。"定位+同义替换"是核心技巧</td></tr>
+<tr><td>大作文</td><td>15分</td><td>准备2-3套万能模板（图表描述+原因分析+建议展望），熟练默写</td><td>10-12分</td><td>模板化程度高，短期可大幅提分</td></tr>
+<tr><td>小作文</td><td>10分</td><td>准备5类信体模板（建议信/道歉信/邀请信/感谢信/推荐信）</td><td>7-8分</td><td>格式固定，背诵模板即可得分</td></tr>
+<tr><td>翻译</td><td>15分</td><td>做真题翻译，背诵常见句型结构</td><td>6-8分</td><td>翻译提分慢，做真题练手感即可，不投入过多</td></tr>
+<tr><td>新题型</td><td>10分</td><td>10月起做真题新题型（七选五/排序/小标题）</td><td>4-6分</td><td>技巧性强，跟腿姐/宋逸轩的方法课即可</td></tr>
+<tr><td>完形填空</td><td>10分</td><td>只做真题，不专项训练</td><td>3-5分</td><td>性价比最低，考试时最后做，蒙也能拿2-3分</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>推荐资料</h3>
+<table>
+<tbody><tr><th>资料</th><th>用途</th><th>说明</th></tr>
+<tr><td>红宝书/恋练有词</td><td>背单词</td><td>每天50个新词+艾宾浩斯复习</td></tr>
+<tr><td>唐迟《长难句的逻辑》</td><td>语法长难句</td><td>适合零基础入门，8月学完前8讲</td></tr>
+<tr><td>考研英语历年真题（张剑黄皮书）</td><td>真题训练</td><td>2006-2025年真题，精读三遍</td></tr>
+<tr><td>王江涛《考研英语高分写作》</td><td>作文模板</td><td>大作文背2-3篇范文改写为模板</td></tr>
+<tr><td>墨墨背单词/不背单词APP</td><td>碎片化背词</td><td>利用排队、等车时间复习</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>复习理由</h3>
+<div class="alert">
+<p><strong>为什么英语是最危险的科目？</strong></p>
+<p>你的四级第一次420分、第二次360分，英语基础薄弱。但考研英语一和四级的考查重点不同：四级重听力（35%），考研英语不考听力，重阅读（40%）。这意味着只要阅读做好，考研英语过线（50分）完全可行。但风险在于：英语单科线如果不过（$\geq$35分），总分再高也无法进入复试。因此英语必须每天坚持，哪怕只有1.5小时也不能断。</p>
+</div>
+<div class="tip">
+<p><strong>为什么放弃完形填空？</strong>完形填空20题共10分，每题0.5分，是性价比最低的题型。考研英语时间紧张（180分钟做大量题目），把完形填空的时间分配给阅读和作文更划算。考试时完形填空最后做，能做几题做几题，其余蒙同一选项（如全选B），保底2.5分。</p>
+</div>
+</div>
+
+<h2 id="sec-subj-politics">3.4 考研政治复习规划（100分）</h2>
+<div class="card">
+<h3>考试概况</h3>
+<p>101思想政治理论满分100分，考试时长3小时。题型：单选题（16分）+多选题（34分）+分析题（50分）。内容：马原（24分）+毛中特（30分）+史纲（14分）+思修（16分）+时政（16分）。陕师大2026年政治单科线$\geq$35分，目标65-70分。</p>
+</div>
+
+<div class="card">
+<h3>复习阶段划分</h3>
+<table>
+<tbody><tr><th>阶段</th><th>时间</th><th>核心任务</th><th>每日时长</th><th>目标产出</th></tr>
+<tr><td>基础阶段</td><td>8月-9月</td><td>听徐涛强化班+做肖秀荣1000题</td><td>1.5h</td><td>马原+史纲一轮完成</td></tr>
+<tr><td>强化阶段</td><td>10月-11月</td><td>1000题二刷+腿姐技巧班+肖八选择题</td><td>1.5-2h</td><td>选择题稳定35分+</td></tr>
+<tr><td>冲刺阶段</td><td>11月中-12月</td><td>背肖四+时政+模拟卷</td><td>2-3h</td><td>肖四熟练背诵</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>各模块复习方案与理由</h3>
+<table>
+<tbody><tr><th>模块</th><th>分值</th><th>复习方案</th><th>目标分数</th><th>理由</th></tr>
+<tr><td>马原</td><td>24分</td><td>8月听徐涛马原强化班（1.25倍速）+1000题对应部分。理解为主，不要死记</td><td>16-18分</td><td>马原理解了就不容易忘，是性价比最高的模块</td></tr>
+<tr><td>毛中特</td><td>30分</td><td>9月听课+1000题。10月跟腿姐技巧班学关键词定位法</td><td>18-22分</td><td>分值最高但内容多，重点是习近平新时代中国特色社会主义思想</td></tr>
+<tr><td>史纲</td><td>14分</td><td>8-9月听课+1000题。整理时间线，记忆关键事件</td><td>10-12分</td><td>时间线清晰后得分容易，注意与毛中特的交叉内容</td></tr>
+<tr><td>思修</td><td>16分</td><td>10月快速过一遍+1000题。不需要花太多时间</td><td>12-14分</td><td>内容简单，常识题多，选择题容易拿分</td></tr>
+<tr><td>时政</td><td>16分</td><td>11月跟腿姐时政课，背模拟卷中的时政题</td><td>10-12分</td><td>不能提前准备，11月集中突击即可</td></tr>
+<tr><td>分析题</td><td>50分</td><td>12月背肖四（先学结构再背材料），掌握"点-默-析"答题法</td><td>30-35分</td><td>肖四命中率极高，背了就有分</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>推荐资料</h3>
+<table>
+<tbody><tr><th>资料</th><th>用途</th><th>说明</th></tr>
+<tr><td>徐涛《核心考案》+强化班视频</td><td>基础学习</td><td>1.25倍速听课，边听边在讲义上做笔记</td></tr>
+<tr><td>肖秀荣《1000题》</td><td>刷题</td><td>至少刷2遍，错题反复看</td></tr>
+<tr><td>腿姐《技巧班》</td><td>选择题技巧</td><td>10月学完，关键词定位法非常实用</td></tr>
+<tr><td>肖秀荣《考点预测（背诵版）》</td><td>背诵</td><td>11月出版，比肖四出版早，可提前背</td></tr>
+<tr><td>肖秀荣八套卷（肖八）</td><td>模拟选择题</td><td>11月出版，每天一套限时做</td></tr>
+<tr><td>肖秀荣四套卷（肖四）</td><td>分析题背诵</td><td>12月出版，分析题全部背熟，考研政治的"救命稻草"</td></tr>
+<tr><td>腿姐《冲刺背诵手册》</td><td>时政+背诵</td><td>11月跟腿姐时政课</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>复习理由</h3>
+<div class="tip">
+<p><strong>为什么政治8月才开始不算晚？</strong>政治是考研四科中"起步最晚、提分最快"的科目。大部分考生的政治复习从7-8月开始，你的8月起步完全在正常范围内。过早开始反而会遗忘，政治的记忆峰值在考前1-2个月。8-9月打基础（听课+刷题），10-11月强化（技巧班+肖八），12月冲刺（背肖四），时间线完全合理。</p>
+</div>
+<div class="note">
+<p><strong>为什么选择题是政治的关键？</strong>政治选择题共50分（单选16+多选34），分析题50分。选择题决定了分数的下限，分析题决定了上限。选择题中多选题（34分）是拉分主力——多选少选均不得分，因此多选题的正确率直接决定政治总分。腿姐技巧班的"关键词定位法"可以大幅提高多选题正确率。</p>
+</div>
+<div class="alert">
+<p><strong>为什么肖四是"救命稻草"？</strong>肖四（肖秀荣四套卷）每年12月初出版，其分析题预测命中率极高（近5年平均命中率约80%）。12月背熟肖四分析题，考研政治分析题基本可以拿到30-35分。方法：先读3遍理解逻辑$\rightarrow$再背框架（每题3-4个要点）$\rightarrow$最后填充材料。不要逐字逐句死记硬背。</p>
+</div>
+</div>
+
+<h2 id="sec-subj-summary">3.5 四科时间分配总览</h2>
+<div class="card">
+<h3>每日时间分配（备考期）</h3>
+<table>
+<tbody><tr><th>科目</th><th>满分</th><th>每日时长</th><th>占比</th><th>目标分数</th><th>保底分数</th><th>提分难度</th></tr>
+<tr><td>726数学分析</td><td>150</td><td>3-4h</td><td>35%</td><td>120-130</td><td>100</td><td>低（基础好）</td></tr>
+<tr><td>826高等代数</td><td>150</td><td>2-3h</td><td>28%</td><td>120-130</td><td>100</td><td>低（基础好）</td></tr>
+<tr><td>201英语一</td><td>100</td><td>2h</td><td>20%</td><td>55-65</td><td>50</td><td>高（基础弱）</td></tr>
+<tr><td>101政治</td><td>100</td><td>1.5h</td><td>17%</td><td>65-70</td><td>60</td><td>中（零基础）</td></tr>
+<tr><td><strong>合计</strong></td><td><strong>500</strong></td><td><strong>8.5-10.5h</strong></td><td><strong>100%</strong></td><td><strong>360-395</strong></td><td><strong>310</strong></td><td>—</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>时间分配理由</h3>
+<div class="tip">
+<p><strong>为什么数分高代占63%的时间？</strong>两门专业课共300分，占总分的60%，且你的基础扎实、提分效率高。每多投入1小时专业课可以提升2-3分，而英语每多投入1小时可能只提升0.5-1分。在有限时间内，将精力分配给提分效率最高的科目是最优策略。</p>
+</div>
+<div class="alert">
+<p><strong>为什么英语时间占比偏高（20%）？</strong>虽然英语只占20%的总分，但英语是"单科线"科目——如果英语不过35分，总分再高也无法进入复试。你的英语基础弱（四级360分），属于"高风险"科目，因此需要额外投入时间确保过线。这叫"保底策略"：先确保每科过线，再追求总分最大化。</p>
+</div>
+<div class="note">
+<p><strong>为什么政治时间最少（17%）？</strong>政治是"投入产出比"最高的科目——12月背肖四就能拿到30+分分析题，选择题靠刷题和技巧班即可。8-11月每天1.5小时足够打基础，12月增加到2-3小时背肖四即可。不需要像专业课那样投入大量时间。</p>
+</div>
+</div>
+
+<div class="card">
+<h3>复习进度检查表</h3>
+<table>
+<tbody><tr><th>检查节点</th><th>数分</th><th>高代</th><th>英语</th><th>政治</th></tr>
+<tr><td>8月底</td><td>第1-5章完成</td><td>第1-4章完成</td><td>1050词+长难句</td><td>马原+史纲一轮</td></tr>
+<tr><td>9月底</td><td>全书完成+真题1遍</td><td>全书完成+真题1遍</td><td>阅读2006-2012</td><td>1000题一刷完</td></tr>
+<tr><td>10月底</td><td>真题2遍+错题本</td><td>真题2遍+错题本</td><td>阅读2006-2020</td><td>技巧班+肖八</td></tr>
+<tr><td>11月底</td><td>模考+竞赛</td><td>模考+竞赛</td><td>模考+模板定稿</td><td>肖八二刷+时政</td></tr>
+<tr><td>12月18日</td><td>回归基础</td><td>回归基础</td><td>模板默写</td><td>肖四背熟</td></tr>
+</tbody></table>
+</div>
+</section>
+
+<!-- Section 4: Path Analysis -->
+<section class="section" id="sec-paths">
+<h1>四、路径选择与行动方案</h1>
+
+<h2 id="sec-paths-a">4.1 路径A：全职考研（推荐）</h2>
+<div class="card">
+<h3>核心策略</h3>
+<p>全身心投入考研备考，放弃奥数兼职（周末8小时×2天+每晚打卡），利用数分高代基础扎实和竞赛训练的优势，冲击陕师大数学学硕。暑期家教结束后不再接新兼职，保留轻量家教维持教学履历。</p>
+<h4>优势</h4>
+<ul>
+<li>时间完全可控，每天8-10小时高效备考</li>
+<li>竞赛（11月初赛）与考研专业课高度重叠，一份备考覆盖两场考试</li>
+<li>2026年陕师大扩招至35人，窗口期有利</li>
+<li>数分高代基础扎实，专业课投入少、产出高</li>
+</ul>
+<h4>风险</h4>
+<ul>
+<li>考研失败需二战，时间成本大</li>
+<li>一年内无全职工作经验</li>
+</ul>
+<h4>风险对冲</h4>
+<ul>
+<li>暑期家教+竞赛获奖维持简历非空白</li>
+<li>考取教师资格证作为保底</li>
+<li>11月秋招季投递少量保底offer</li>
+<li>若考研失利，二战时竞赛决赛训练已强化数分高代</li>
+</ul>
+</div>
+
+<h2 id="sec-paths-b">4.2 路径B：直接就业</h2>
+<div class="card">
+<h3>核心策略</h3>
+<p>放弃考研，全身心投入求职。以奥数兼职为起点，积累教学经验，同时考取教师资格证，目标锁定教师编制或教培行业。</p>
+<h4>优势</h4>
+<ul>
+<li>立即获得收入（兼职月薪3000元）</li>
+<li>提前积累教学经验</li>
+<li>避免考研失败风险</li>
+</ul>
+<h4>风险</h4>
+<ul>
+<li>奥数兼职锁定一年半，期间无法考研</li>
+<li>双减政策下教培行业不稳定</li>
+<li>本科学历限制职业天花板</li>
+<li>教师编制竞争激烈且缩招</li>
+<li>放弃考研后若兼职不如预期，转型困难</li>
+</ul>
+</div>
+
+<h2 id="sec-paths-c">4.3 路径C：双线并行（不推荐但可微调）</h2>
+<div class="card">
+<h3>核心策略</h3>
+<p>以考研为主（80%精力），同时保持轻量家教（暑期已在做的高三线上家教，开学后每周减至2-3次），不接奥数兼职。秋招季（10-11月）投递3-5个保底offer。</p>
+<h4>具体时间分配</h4>
+<table>
+<tbody><tr><th>事项</th><th>精力占比</th><th>时间安排</th></tr>
+<tr><td>考研备考</td><td>80%</td><td>每天6-8小时</td></tr>
+<tr><td>轻量家教</td><td>10%</td><td>每周2-3次，每次90分钟</td></tr>
+<tr><td>竞赛准备</td><td>5%</td><td>与考研专业课合并</td></tr>
+<tr><td>秋招投递</td><td>5%</td><td>10-11月集中投递</td></tr>
+</tbody></table>
+</div>
+
+<h2 id="sec-paths-backup">4.4 后路与补救方案</h2>
+<div class="card">
+<h3>情形1：考研失败，需要找工作</h3>
+<h4>时间节点：2027年2月（成绩公布后）</h4>
+<p>如果考研初试成绩未过线，立即启动求职模式：</p>
+<ol>
+<li><strong>2月-3月：</strong>春招集中投递。目标：公立学校代课教师、教培机构数学教师、数据分析助理岗。利用暑期家教经验+竞赛获奖作为简历亮点。</li>
+<li><strong>3月-4月：</strong>参加各地教师编制考试。数学本科+竞赛国奖在二三线城市考编有竞争力。关注西安、咸阳等地考编公告。</li>
+<li><strong>4月-5月：</strong>考取中学数学教师资格证（如果尚未取得）。笔试内容与考研政治/教育综合有部分重叠。</li>
+<li><strong>5月-6月：</strong>毕业论文/毕业设计完成，同时继续求职。</li>
+</ol>
+<div class="tip">
+<strong>补救措施：</strong>如果2-3月求职无果，不要焦虑。利用4-6月完成毕业论文的同时，自学Python+SQL投递数据分析岗。数学专业+编程技能在银行、互联网数据岗有市场，起薪12K-22K。
+</div>
+</div>
+
+<div class="card">
+<h3>情形2：找工作很久没消息，浪费了考研备考时间</h3>
+<h4>这是"双线并行"最大的风险。补救方案：</h4>
+<ol>
+<li><strong>立即止损：</strong>如果在10月底前求职仍无实质进展（无面试邀约或均被拒），立即停止求职，100%投入考研。11月到12月还有6周冲刺期，对于数分高代基础扎实的你，专业课不是问题，关键是英语和政治的突击。</li>
+<li><strong>英语止损策略：</strong>如果英语仍处于低水平，放弃完形填空（10分性价比最低），集中火力攻克阅读A（40分）+作文（30分）。阅读掌握"定位+同义替换"技巧，作文背熟2-3套模板。目标：英语50分（过线即可）。</li>
+<li><strong>政治止损策略：</strong>如果政治10月底才开始，直接跳过基础阶段，从腿姐技巧班+肖八选择题开始。11月中旬后全力背肖四。目标：政治60分。</li>
+<li><strong>专业课保底：</strong>数分高代做透陕师大近5年真题，确保专业课总分不低于200分（数分100+高代100）。</li>
+</ol>
+<div class="alert">
+<strong>保底分数计算：</strong>数分100 + 高代100 + 英语50 + 政治60 = 310分。虽然低于2026年复试线339分，但如果2027年分数线如2025年般降至324分附近，310-320分仍有希望。即使不过线，也为二战打下基础。
+</div>
+</div>
+
+<div class="card">
+<h3>情形3：考研失败+找工作也失败</h3>
+<h4>终极后路：</h4>
+<ol>
+<li><strong>二战考研：</strong>第一年完整备考+竞赛决赛训练已强化数分高代。二战时专业课更强，只需补英语政治。增量成本可控。</li>
+<li><strong>特岗教师计划：</strong>2026年继续实施"特岗计划"<a href="http://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202604/t20260422_1434524.html" target="_blank">[来源]</a>，面向基层学校，竞争相对较小。</li>
+<li><strong>公务员考试：</strong>国家统计局、审计署等岗位接受数学专业。国考超三成岗位要求四级425分以上。</li>
+<li><strong>自由职业/线上教育：</strong>利用家教经验，在平台上做线上数学辅导，时薪60-150元。</li>
+</ol>
+</div>
+
+<div class="card">
+<h3>"现在开始还来不来得及？"</h3>
+<div class="tip">
+<strong>结论：完全来得及。</strong>
+<ul>
+<li>距考研初试（12月19日）还有 <strong>131天</strong>（从8月11日算起）</li>
+<li>你的数分高代基础扎实，专业课无需从零开始，每天3-4小时即可</li>
+<li>英语零基础但目标仅50-65分，每天2小时、131天共262小时，足够从零到过线</li>
+<li>政治零基础但目标65-70分，7月开始不早不晚，是黄金起步点</li>
+<li>竞赛初赛（11月）与考研高度重叠，不额外占用时间</li>
+<li>131天 × 每天8小时有效学习 = 1048小时，远超考研所需的800-1000小时底线</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- Section 4: Daily Plan -->
+<section class="section" id="sec-daily" style="padding:0">
+<h1 style="padding:40px 40px 0">五、每日详细计划（打卡）</h1>
+<p style="padding:0 40px 8px;color:var(--text-muted)">点击每个时间段右侧的圆圈完成打卡。打卡数据保存在浏览器本地，关闭后不丢失。使用上方日期导航快速跳转到任意日期。<br><strong>移动端用户：</strong>请使用Safari打开本文件；若打卡数据不保存，点击「导出打卡」备份数据，换设备后点「导入打卡」恢复。</p>
+
+<!-- Date Navigation -->
+<div class="date-nav">
+  <button onclick="changeDate(-1)">◀ 前一天</button>
+  <span class="current-date" id="currentDateText">2026-08-11</span>
+  <button onclick="changeDate(1)">后一天 ▶</button>
+  <button onclick="goToToday()" class="today-btn">回到今天</button>
+  <input type="date" id="datePicker" onchange="jumpToDate(this.value)" min="2026-08-11" max="2027-04-30">
+  <span class="phase-badge" id="phaseBadge" style="background:#3C2ECA">暑期筑基期</span>
+</div>
+
+<!-- Quick Week Navigation -->
+<div class="week-nav" id="weekNav"></div>
+
+<!-- Progress Overview -->
+<div class="progress-overview">
+  <div class="progress-card">
+    <div class="label">今日完成</div>
+    <div class="value" id="todayProgress">0/0</div>
+    <div class="progress-bar"><div class="progress-fill" id="todayBar" style="width:0%"></div></div>
+  </div>
+  <div class="progress-card">
+    <div class="label">本周完成</div>
+    <div class="value" id="weekProgress">0/0</div>
+    <div class="progress-bar"><div class="progress-fill" id="weekBar" style="width:0%"></div></div>
+  </div>
+  <div class="progress-card">
+    <div class="label">总体完成</div>
+    <div class="value" id="totalProgress">0/0</div>
+    <div class="progress-bar"><div class="progress-fill" id="totalBar" style="width:0%"></div></div>
+  </div>
+</div>
+
+<!-- Schedule List -->
+<div class="schedule-list" id="scheduleList"></div>
+</section>
+
+<!-- Section 5: PE Plan -->
+<section class="section" id="sec-pe">
+<h1>六、体测提升计划</h1>
+
+<h2 id="sec-pe-analysis">6.1 成绩分析与计算</h2>
+<div class="alert">
+<strong>官方毕业要求：</strong>根据教育部《国家学生体质健康标准（2014年修订）》<a href="http://www.moe.gov.cn/jyb_xwfb/s5147/201407/t20140711_171406.html" target="_blank">[来源]</a>及陕西科技大学体育部规定<a href="https://ty.sust.edu.cn/info/1003/6587.htm" target="_blank">[来源]</a>：
+<br><br>
+<strong>毕业成绩 = 大四当年学年总分 × 50% + 其他学年总分平均得分 × 50%</strong>
+<br><br>
+<strong>毕业成绩达不到50分者，按结业或肄业处理。</strong>
+</div>
+
+<div class="card">
+<h3>当前三年成绩</h3>
+<table>
+<tbody><tr><th>学年</th><th>BMI(15%)</th><th>肺活量(15%)</th><th>50m(20%)</th><th>坐位体前屈(10%)</th><th>立定跳远(10%)</th><th>引体向上(10%)</th><th>1000m(20%)</th><th>加权总分</th></tr>
+<tr><td>大一</td><td>80</td><td>60</td><td>62</td><td>70</td><td>20</td><td>0</td><td>20</td><td><strong>46.4</strong></td></tr>
+<tr><td>大二</td><td>80</td><td>66</td><td>60</td><td>64</td><td>20</td><td>0</td><td>20</td><td><strong>46.3</strong></td></tr>
+<tr><td>大三</td><td>100</td><td>76</td><td>50</td><td>72</td><td>0</td><td>0</td><td>20</td><td><strong>47.6</strong></td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>大四所需分数计算</h3>
+<div class="formula">
+其他学年平均分 = (46.4 + 46.3 + 47.6) / 3 = <strong>46.77</strong>
+<br><br>
+毕业成绩 = 大四总分 × 50% + 46.77 × 50% &gt; 50
+<br><br>
+大四总分 × 0.5 + 23.38 &gt; 50
+<br><br>
+<strong>大四总分 &gt; 53.24</strong>
+</div>
+<p>即：大四体测加权总分只需达到 <strong>54分</strong> 即可保证毕业成绩过50分线。</p>
+<p>当前大三总分为47.6分，需要提升 <strong>6.4分</strong>。这个提升幅度完全可行！</p>
+</div>
+
+<div class="card">
+<h3 id="sec-pe-plan">6.2 提分方案：哪些项目最快提分</h3>
+<p>根据各项目权重和当前水平，按"投入产出比"排序：</p>
+<table>
+<tbody><tr><th>优先级</th><th>项目</th><th>权重</th><th>当前分数</th><th>目标分数</th><th>提升分数</th><th>加权提升</th><th>难度</th></tr>
+<tr><td>1</td><td>立定跳远</td><td>10%</td><td>0</td><td>60(210cm)</td><td>+60</td><td><strong>+6.0</strong></td><td>中（技术+爆发力）</td></tr>
+<tr><td>2</td><td>1000米跑</td><td>20%</td><td>20</td><td>40(5'10")</td><td>+20</td><td><strong>+4.0</strong></td><td>中高（需耐力训练）</td></tr>
+<tr><td>3</td><td>50米跑</td><td>20%</td><td>50</td><td>60(9.0s)</td><td>+10</td><td><strong>+2.0</strong></td><td>低（技术微调）</td></tr>
+<tr><td>4</td><td>坐位体前屈</td><td>10%</td><td>72</td><td>80(14cm)</td><td>+8</td><td><strong>+0.8</strong></td><td>低（每日拉伸）</td></tr>
+<tr><td>5</td><td>引体向上</td><td>10%</td><td>0</td><td>20(7个)</td><td>+20</td><td><strong>+2.0</strong></td><td>高（短期难提）</td></tr>
+</tbody></table>
+
+<div class="tip">
+<strong>最优策略：重点突破立定跳远+1000米跑</strong>
+<br><br>
+仅提升立定跳远到210cm（60分），加权提升+6.0，大四总分=47.6+6.0=<strong>53.6</strong>，毕业成绩=53.6×0.5+46.77×0.5=<strong>50.19 &gt; 50 ✓</strong>
+<br><br>
+再提升1000米到5'10"（40分），加权提升+4.0，大四总分=47.6+6.0+4.0=<strong>57.6</strong>，毕业成绩=57.6×0.5+46.77×0.5=<strong>52.19 &gt; 50 ✓</strong>
+<br><br>
+如果50米也提升到9.0s（60分），大四总分=<strong>59.6</strong>，毕业成绩=<strong>53.19 &gt; 50 ✓</strong>（安全余量充足）
+</div>
+
+<div class="alert">
+<strong>关于引体向上：</strong>引体向上从0个到7个（20分）需要较长时间的上肢力量训练，短期内（2-3个月）难以显著突破。<strong>建议放弃引体向上作为主要提分项</strong>，将精力集中在立定跳远、1000米和50米上。引体向上每天练习作为辅助，能做几个算几个，即使0分也不影响毕业（因为其他项目提升足以覆盖）。
+</div>
+</div>
+
+<div class="card">
+<h3>6.3 每日训练计划（融入作息）</h3>
+<h4>晨间训练（15-20分钟）</h4>
+<ul>
+<li><strong>慢跑800-1200米（8-10分钟）：</strong>提升心肺功能，直接服务于1000米跑。从800米开始，每周增加100米，目标在10月底达到连续跑1500米不停。</li>
+<li><strong>坐位体前屈拉伸（5-8分钟）：</strong>站立体前屈、坐姿前屈、分腿前屈各保持30秒×3组。目标从12.6cm提升到14cm以上（80分）。</li>
+</ul>
+
+<h4>傍晚训练（15-20分钟）</h4>
+<ul>
+<li><strong>立定跳远技术+爆发力训练（10-12分钟）：</strong>
+  <ul>
+  <li>深蹲跳：3组×8个（提升下肢爆发力）</li>
+  <li>立定跳远技术练习：5-8次（重点：摆臂协调+蹬地发力+空中收腿+落地缓冲）</li>
+  <li>蛙跳：3组×5个（提升连续爆发力）</li>
+  </ul>
+</li>
+<li><strong>50米起跑练习（3-5分钟）：</strong>站立式起跑+加速跑30米×4次。重点：起跑反应、前10米加速。</li>
+</ul>
+
+<h4>睡前训练（宿舍内，5-10分钟）</h4>
+<ul>
+<li><strong>坐位体前屈拉伸（5分钟）：</strong>23:00宿舍门关后在宿舍内进行。坐姿前屈、分腿前屈各保持30秒×3组，保持柔韧性。</li>
+</ul>
+<div class="alert"><strong>注意：</strong>引体向上须在体育馆21:00关门前完成，23:00后宿舍门关，无法使用单杠。请将引体向上训练安排在傍晚时段（20:30-21:00）。</div>
+
+<div class="note">
+<strong>训练进度规划：</strong>
+<ul>
+<li><strong>8月-9月：</strong>基础期，建立跑步习惯，立定跳远技术纠正，每日拉伸</li>
+<li><strong>10月：</strong>强化期，大四体测通常在10月中下旬<a href="https://ty.sust.edu.cn/info/1003/6587.htm" target="_blank">[来源]</a>，此时应达到目标成绩</li>
+<li><strong>11月起：</strong>维持期，减少训练量，每天仅拉伸+轻度慢跑，不影响考研</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>6.4 立定跳远技术要点（最快提分项）</h3>
+<p>立定跳远是投入产出比最高的项目：从180cm到210cm只需30cm提升，通过技术纠正+爆发力训练，2-3个月内完全可行。</p>
+<h4>技术四步法：</h4>
+<ol>
+<li><strong>预备：</strong>双脚与肩同宽，脚尖向前，膝盖微屈，双臂自然下垂</li>
+<li><strong>摆臂：</strong>双臂由后向前上方有力摆动，同时双腿快速蹬地（摆臂可增加10-15cm）</li>
+<li><strong>腾空：</strong>蹬地后双腿收紧向胸部靠拢，身体在空中呈"蹲姿"（收腿可增加5-10cm）</li>
+<li><strong>落地：</strong>脚跟先着地，迅速屈膝缓冲，双手前伸保持平衡（避免后倒）</li>
+</ol>
+<h4>常见错误纠正：</h4>
+<ul>
+<li>❌ 不摆臂或摆臂不充分 → 损失10-15cm</li>
+<li>❌ 腾空后腿伸直不收 → 损失5-10cm</li>
+<li>❌ 落地时直腿 → 容易后倒，成绩取最近点</li>
+<li>✅ 多看教学视频（B站搜索"立定跳远技术教学"）</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>6.5 1000米跑训练方案</h3>
+<p>1000米从5'50"提升到5'10"需要40秒，权重20%，投入产出比排第二。</p>
+<h4>训练方法：</h4>
+<ul>
+<li><strong>8月：</strong>慢跑800米×1组（不限时），建立基础心肺能力。隔天一次。</li>
+<li><strong>9月：</strong>间歇跑训练：400米快跑（2分钟内）+ 200米慢走恢复，重复4组。每周3次。</li>
+<li><strong>10月：</strong>1000米计时跑：每周2次完整1000米计时，目标5'10"以内。</li>
+<li><strong>呼吸技巧：</strong>"两步一吸两步一呼"，避免岔气。前400米控制节奏（不要冲太快），后600米全力。</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>6.6 "还有没有救？"</h3>
+<div class="tip">
+<strong>结论：完全有救！</strong>
+<ul>
+<li>大四只需54分（加权），而非之前误以为的60分</li>
+<li>仅提升立定跳远一项（从0到60分），即可达到毕业要求</li>
+<li>立定跳远从180cm到210cm，2-3个月技术训练完全可行</li>
+<li>即使引体向上0分，也不影响毕业</li>
+<li>大四体测通常在10月中下旬，有2.5个月训练时间</li>
+<li>体测补测通常在11月初<a href="https://ty.sust.edu.cn/info/1003/6677.htm" target="_blank">[来源]</a>，还有第二次机会</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- Section 6: CET-4 -->
+<section class="section" id="sec-cet4">
+<h1>七、四级备考计划</h1>
+
+<h2 id="sec-cet4-analysis">7.1 现状分析</h2>
+<div class="card">
+<h3>考试记录</h3>
+<table>
+<tbody><tr><th>次数</th><th>时间</th><th>分数</th><th>与425分差距</th></tr>
+<tr><td>第一次</td><td>2025年12月（估）</td><td>420</td><td>-5</td></tr>
+<tr><td>第二次</td><td>2026年6月</td><td>~360</td><td>-65</td></tr>
+</tbody></table>
+<div class="alert">
+<strong>成绩下降分析：</strong>第二次比第一次低了约60分，可能原因：
+<ul>
+<li>6月恰逢期末考试季，精力分散</li>
+<li>第一次差5分后心态焦虑，反而影响发挥</li>
+<li>缺乏系统性备考，靠裸考或临时抱佛脚</li>
+<li>听力或某题型发挥失常</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>7.2 四级与毕业/学位的关系</h3>
+<p>根据陕西科技大学2026年7月14日发布的《学士学位授予实施办法》<a href="https://dianqi.sust.edu.cn/info/1086/30386.htm" target="_blank">[来源]</a>：</p>
+<div class="tip">
+<strong>好消息：陕西科技大学正常情况下不要求英语四级即可授予学位！</strong>
+<ul>
+<li>正常授予条件：修满学分 + 通过毕业论文 + 平均学分绩点 ≥ 2.00 → 即可授予学位</li>
+<li><strong>不包含英语四级要求</strong></li>
+<li>仅在特殊情况（GPA 1.50-2.00 或有作弊行为）下，才需要CET-4成绩达到"折合百分制50分"（即355分）</li>
+</ul>
+</div>
+<div class="note">
+<strong>但四级仍然重要：</strong>
+<ul>
+<li><strong>大学英语课程学分：</strong>四级425分可认定大学英语(I)~(IV)课程合格<a href="https://dianqi.sust.edu.cn/info/1086/3773.htm" target="_blank">[来源]</a>。如果大学英语课程有挂科，需要四级425分才能认定合格。</li>
+<li><strong>求职：</strong>国企、银行、互联网大厂网申常见筛选条件</li>
+<li><strong>考公/考编：</strong>国考超三成岗位要求四级425分以上</li>
+<li><strong>考研/保研：</strong>425分是保研基本门槛，部分导师看重</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>7.3 下次考试机会</h3>
+<table>
+<tbody><tr><th>项目</th><th>时间</th><th>说明</th></tr>
+<tr><td>报名</td><td>2026年9月中旬（预计9月15-26日）</td><td>关注学校教务处通知<a href="https://cet-bm.neea.edu.cn/" target="_blank">报名官网</a></td></tr>
+<tr><td>笔试</td><td><strong>2026年12月12日（周六）</strong></td><td>9:00-11:20<a href="http://www.eol.cn/kaoshi/ky/cet/202608/t20260804_2762779.shtml" target="_blank">[来源]</a></td></tr>
+<tr><td>成绩查询</td><td>2027年2月底（预计）</td><td><a href="https://cet.neea.edu.cn/cet" target="_blank">查询入口</a></td></tr>
+</tbody></table>
+<div class="alert">
+<strong>关键：这是毕业前最后一次有意义的四级考试机会。</strong>2027年6月的考试成绩8月才出，来不及用于6月毕业。因此，12月这次考试是"背水一战"。
+</div>
+</div>
+
+<h2 id="sec-cet4-plan">7.4 备考方案（与考研英语合并）</h2>
+<div class="card">
+<h3>核心策略：四级与考研英语双轨合并</h3>
+<p>四级和考研英语在词汇、阅读、写作上有大量重叠。你的备考策略应该是：<strong>以考研英语为主线，四级作为阶段性检验</strong>。</p>
+<table>
+<tbody><tr><th>项目</th><th>四级</th><th>考研英语一</th><th>合并策略</th></tr>
+<tr><td>词汇</td><td>~4500词</td><td>~5500词</td><td>背考研词汇，覆盖四级</td></tr>
+<tr><td>阅读</td><td>4篇×5题</td><td>4篇×5题</td><td>做考研阅读真题，难度更高</td></tr>
+<tr><td>写作</td><td>翻译+写作</td><td>大小作文</td><td>背考研作文模板，覆盖四级</td></tr>
+<tr><td>听力</td><td>占比35%</td><td>不考</td><td><strong>需单独准备</strong></td></tr>
+</tbody></table>
+<div class="note">
+<strong>四级听力是最大短板：</strong>考研英语不考听力，但四级听力占35%（248.5分）。如果听力不好，四级很难过425。需要在考研备考之余，每天抽出30分钟专门练听力。
+</div>
+</div>
+
+<div class="card">
+<h3>7.5 四级听力专项计划</h3>
+<table>
+<tbody><tr><th>阶段</th><th>时间</th><th>任务</th><th>每日时长</th></tr>
+<tr><td>基础</td><td>8月-9月</td><td>每天听1篇四级听力真题短文，先听3遍不看文本，再对照文本精听</td><td>30分钟</td></tr>
+<tr><td>强化</td><td>10月-11月</td><td>每天做1套四级听力真题（约25分钟），重点训练新闻听力+长对话</td><td>30分钟</td></tr>
+<tr><td>冲刺</td><td>11月底-12月12日</td><td>每2天1套完整四级真题（含听力），严格计时</td><td>40分钟</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>7.6 四级考试时间分配策略</h3>
+<table>
+<tbody><tr><th>题型</th><th>分值占比</th><th>建议用时</th><th>策略</th></tr>
+<tr><td>写作</td><td>15%</td><td>30分钟</td><td>先写，背模板</td></tr>
+<tr><td>听力</td><td>35%</td><td>25分钟</td><td>重点突破项</td></tr>
+<tr><td>阅读</td><td>35%</td><td>40分钟</td><td>考研阅读训练覆盖</td></tr>
+<tr><td>翻译</td><td>15%</td><td>30分钟</td><td>背常用句型</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3>7.7 "还有没有救？"</h3>
+<div class="tip">
+<strong>结论：有救，但需要重视听力。</strong>
+<ul>
+<li>第一次420分说明基础不差，只差5分</li>
+<li>第二次360分是发挥失常，不代表真实水平下降</li>
+<li>12月考试还有4个月准备时间</li>
+<li>阅读和写作可通过考研英语备考覆盖</li>
+<li><strong>关键是听力：</strong>每天30分钟听力训练，4个月共60小时，足够从听不懂到能拿60%分数</li>
+<li>即使四级不过，不影响毕业和学位（SUST不强制要求）</li>
+<li>但建议尽力通过，对求职和未来发展有利</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>7.8 毕业论文/毕业设计时间安排</h3>
+<table>
+<tbody><tr><th>时间</th><th>任务</th><th>建议</th></tr>
+<tr><td>2026年12月</td><td>确定毕业论文方向</td><td>选择与数学分析/高等代数相关的方向，与考研复习协同</td></tr>
+<tr><td>2027年1-2月</td><td>文献阅读+开题报告</td><td>考研初试结束后进行，不占用备考时间</td></tr>
+<tr><td>2027年3-4月</td><td>论文撰写</td><td>复试/决赛期间并行，每天1-2小时</td></tr>
+<tr><td>2027年5月</td><td>论文修改+答辩</td><td>复试结束后全力完成</td></tr>
+</tbody></table>
+</div>
+</section>
+
+<!-- Section 7: Sources -->
+<section class="section" id="sec-sources">
+<h1>八、参考来源</h1>
+<p>以下所有链接均为官方或权威来源，可点击验证。</p>
+
+<div class="source-cat">陕西师范大学研究生招生</div>
+<ul class="source-list">
+<li>陕西师范大学研究生招生信息网首页：<a href="http://yz.snnu.edu.cn/" target="_blank">http://yz.snnu.edu.cn/</a></li>
+<li>2026年硕士研究生招生简章：<a href="http://yz.snnu.edu.cn/info/1008/7751.htm" target="_blank">http://yz.snnu.edu.cn/info/1008/7751.htm</a></li>
+<li>招生专业目录查询：<a href="https://yz.snnu.edu.cn/zycx.htm" target="_blank">https://yz.snnu.edu.cn/zycx.htm</a></li>
+<li>726数学分析考试大纲：<a href="https://yz.snnu.edu.cn/info/1127/1430.htm" target="_blank">https://yz.snnu.edu.cn/info/1127/1430.htm</a></li>
+<li>826高等代数考试大纲：<a href="https://yz.snnu.edu.cn/info/1127/1432.htm" target="_blank">https://yz.snnu.edu.cn/info/1127/1432.htm</a></li>
+<li>考试大纲汇总：<a href="https://yz.snnu.edu.cn/ksdg.htm" target="_blank">https://yz.snnu.edu.cn/ksdg.htm</a></li>
+<li>历年分数线：<a href="http://yz.snnu.edu.cn/xxcx/lnfsx.htm" target="_blank">http://yz.snnu.edu.cn/xxcx/lnfsx.htm</a></li>
+<li>2026年复试分数线通知：<a href="http://yz.snnu.edu.cn/info/1008/7951.htm" target="_blank">http://yz.snnu.edu.cn/info/1008/7951.htm</a></li>
+<li>2026年数学与统计学院复试分数线PDF：<a href="http://yz.snnu.edu.cn/ss26-014.pdf" target="_blank">http://yz.snnu.edu.cn/ss26-014.pdf</a></li>
+<li>2026年复试录取办法：<a href="http://yz.snnu.edu.cn/info/1008/7961.htm" target="_blank">http://yz.snnu.edu.cn/info/1008/7961.htm</a></li>
+<li>数学与统计学院2026年复试方案：<a href="http://maths.snnu.edu.cn/info/1041/17878.htm" target="_blank">http://maths.snnu.edu.cn/info/1041/17878.htm</a></li>
+<li>复试内容及参考书目：<a href="http://maths.snnu.edu.cn/info/1037/2812.htm" target="_blank">http://maths.snnu.edu.cn/info/1037/2812.htm</a></li>
+<li>数学与统计学院官网：<a href="https://maths.snnu.edu.cn/" target="_blank">https://maths.snnu.edu.cn/</a></li>
+</ul>
+
+<div class="source-cat">考研官方信息</div>
+<ul class="source-list">
+<li>中国研究生招生信息网（研招网）：<a href="https://yz.chsi.com.cn/" target="_blank">https://yz.chsi.com.cn/</a></li>
+<li>教育部《2026年全国硕士研究生招生工作管理规定》：<a href="http://www.moe.gov.cn/srcsite/A15/moe_778/s3261/202509/t20250918_1413836.html" target="_blank">http://www.moe.gov.cn/srcsite/A15/moe_778/s3261/202509/t20250918_1413836.html</a></li>
+</ul>
+
+<div class="source-cat">英语四级考试</div>
+<ul class="source-list">
+<li>全国大学英语四六级考试官网：<a href="https://cet.neea.edu.cn/" target="_blank">https://cet.neea.edu.cn/</a></li>
+<li>四级在线报名：<a href="https://cet-bm.neea.edu.cn/" target="_blank">https://cet-bm.neea.edu.cn/</a></li>
+<li>成绩查询：<a href="https://cet.neea.edu.cn/cet" target="_blank">https://cet.neea.edu.cn/cet</a></li>
+<li>CET笔试介绍：<a href="https://cet.neea.edu.cn/html1/folder/16113/1586-1.htm" target="_blank">https://cet.neea.edu.cn/html1/folder/16113/1586-1.htm</a></li>
+<li>2026年12月考试时间预测：<a href="http://www.eol.cn/kaoshi/ky/cet/202608/t20260804_2762779.shtml" target="_blank">http://www.eol.cn/kaoshi/ky/cet/202608/t20260804_2762779.shtml</a></li>
+<li>2026下半年报名时间：<a href="http://www.eol.cn/kaoshi/ky/cet/202607/t20260715_2756475.shtml" target="_blank">http://www.eol.cn/kaoshi/ky/cet/202607/t20260715_2756475.shtml</a></li>
+</ul>
+
+<div class="source-cat">陕西科技大学毕业要求</div>
+<ul class="source-list">
+<li>学士学位授予实施办法（2026.7.14）：<a href="https://dianqi.sust.edu.cn/info/1086/30386.htm" target="_blank">https://dianqi.sust.edu.cn/info/1086/30386.htm</a></li>
+<li>补考及重修制度管理办法：<a href="https://dianqi.sust.edu.cn/info/1086/3773.htm" target="_blank">https://dianqi.sust.edu.cn/info/1086/3773.htm</a></li>
+<li>2025年体质健康标准测试通知：<a href="https://ty.sust.edu.cn/info/1003/6587.htm" target="_blank">https://ty.sust.edu.cn/info/1003/6587.htm</a></li>
+<li>2025年体质健康标准测试补测通知：<a href="https://ty.sust.edu.cn/info/1003/6677.htm" target="_blank">https://ty.sust.edu.cn/info/1003/6677.htm</a></li>
+<li>2025年度本科生体质健康测试预通知：<a href="https://ty.sust.edu.cn/info/1003/6567.htm" target="_blank">https://ty.sust.edu.cn/info/1003/6567.htm</a></li>
+</ul>
+
+<div class="source-cat">体测标准</div>
+<ul class="source-list">
+<li>教育部：体测低于50分不能毕业：<a href="http://www.moe.gov.cn/jyb_xwfb/s5147/201407/t20140711_171406.html" target="_blank">http://www.moe.gov.cn/jyb_xwfb/s5147/201407/t20140711_171406.html</a></li>
+<li>国家学生体质健康标准（2014年修订）全文：<a href="https://tyxy.wfu.edu.cn/2022/0709/c7396a184758/page.htm" target="_blank">https://tyxy.wfu.edu.cn/2022/0709/c7396a184758/page.htm</a></li>
+<li>教育部体质健康标准PDF原件：<a href="https://jyt.shanxi.gov.cn/xwzx/ggtz/201805/P020211016638822418915.pdf" target="_blank">https://jyt.shanxi.gov.cn/xwzx/ggtz/201805/P020211016638822418915.pdf</a></li>
+<li>学生体质健康网（教育部官方）：<a href="https://www.csh.moe.edu.cn/wtzx/bz/20141226/2c909e854a84301a014a8440b4d2000f.html" target="_blank">https://www.csh.moe.edu.cn/</a></li>
+</ul>
+
+<div class="source-cat">就业数据</div>
+<ul class="source-list">
+<li>麦可思2026年就业蓝皮书（满意度TOP20）：<a href="http://m.163.com/dy/article/KV83TLDV05218435.html" target="_blank">http://m.163.com/dy/article/KV83TLDV05218435.html</a></li>
+<li>数学专业就业去向分析：<a href="https://m.sohu.com/a/1015163845_120783273/" target="_blank">https://m.sohu.com/a/1015163845_120783273/</a></li>
+<li>2026年教师招聘通知（教育部）：<a href="http://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202604/t20260422_1434524.html" target="_blank">http://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202604/t20260422_1434524.html</a></li>
+<li>教师招聘年龄放宽至38周岁（新华网）：<a href="http://www3.xinhuanet.com/edu/20260423/6a65f41d22eb43d1812aa39a60b2711d/c.html" target="_blank">http://www3.xinhuanet.com/edu/20260423/</a></li>
+<li>多地教师缩招报道：<a href="https://www.inewsweek.cn/survey/2026-07-07/30976.shtml" target="_blank">https://www.inewsweek.cn/survey/2026-07-07/30976.shtml</a></li>
+<li>校外培训行政处罚暂行办法（教育部令第53号）：<a href="http://www.moe.gov.cn/jyb_xxgk/xxgk/zhengce/guizhang/202309/t20230912_1079802.html" target="_blank">http://www.moe.gov.cn/jyb_xxgk/xxgk/zhengce/guizhang/202309/t20230912_1079802.html</a></li>
+</ul>
+</section>
+
+</main>
+
+<script>
+// ===== Phase Data =====
+const phases = [
+  {
+    name:"暑期筑基期",start:"2026-08-11",end:"2026-08-31",color:"#3C2ECA",
+    desc:"暑期家教期间，打牢数分高代基础，英语政治零基础起步",
+    info:{
+      goal:"用21天建立完整的考研备考节奏，完成数分高代第一轮核心章节复习，英语从零起步达到能做早年真题阅读的水平，政治听完马原+史纲强化课，体测启动立定跳远和1000米专项训练。",
+      requirements:[
+        "数分：完成华东师大教材第1-5章（极限、连续、微分中值定理、不定积分、定积分）的例题和课后习题",
+        "高代：完成北大教材第1-4章（多项式、行列式、线性方程组、矩阵）的例题和课后习题",
+        "英语：每天50个新词，21天累计1050词；语法长难句学完唐迟《长难句的逻辑》前8讲",
+        "政治：1.25倍速听完徐涛马原全部+史纲前半部分，对应1000题做完并订正",
+        "体测：每天晨跑800米+立定跳远技术练习，8月底立定跳远达到200cm"
+      ],
+      notes:[
+        "家教时间（周一至周六19:00-20:30）不可调整，每天17:30-18:00备课（30-60分钟动态调整）。周天无家教，安排数分高代竞赛题专项补回时间",
+        "校园时间限制：食堂20:00关门→晚餐须提前；体育馆21:00关门→引体向上须在21:00前完成；23:00宿舍门关→23:00后须在宿舍内",
+        "暑期是唯一可以全天自由支配的时间段，开学后碎片化时间增多，务必充分利用",
+        "英语零基础不要焦虑，这个阶段的目标是'入门'而非'精通'，能做对早年真题3-4题即可",
+        "政治1.25倍速听课效率最高，不要原速听，但一定要边听边在讲义上做笔记",
+        "体测训练不要过度，以技术纠正为主，避免受伤影响后续备考"
+      ],
+      warnings:[
+        "不要在这个阶段做陕师大近3年真题（留给第二阶段模拟用），可以做5年前的真题",
+        "不要同时开始太多科目，英语和政治每天各2小时足够，剩余时间全部给专业课",
+        "引体向上不需要刻意追求个数，每天悬垂+离心训练即可，短期内难有突破"
+      ],
+      milestones:[
+        {label:"数分完成章节",value:"第1-5章"},
+        {label:"高代完成章节",value:"第1-4章"},
+        {label:"英语词汇量",value:"1050词"},
+        {label:"政治听课进度",value:"马原+史纲"}
+      ]
+    },
+    schedule:[
+      {time:"08:00-08:30",title:"晨跑+坐位体前屈拉伸",cat:"体测",desc:"慢跑800米(8min)+坐位体前屈拉伸(7min)，提升肺活量和柔韧性。立定跳远热身"},
+      {time:"08:30-09:00",title:"早餐+单词记忆",cat:"英语",desc:"边吃早餐边用APP背50个新词，用艾宾浩斯遗忘曲线法"},
+      {time:"09:00-12:00",title:"数学分析",cat:"专业课",desc:"华东师大《数学分析》重点章节+陕师大726历年真题。重点：极限理论、连续性、微分中值定理、级数"},
+      {time:"12:00-14:00",title:"午餐+午休",cat:"休息",desc:"保证30分钟午睡，恢复精力"},
+      {time:"14:00-16:00",title:"英语（语法+阅读+单词）",cat:"英语",desc:"语法长难句40min(唐迟《长难句的逻辑》)+阅读精读40min(早年真题逐句翻译)+单词复习40min"},
+      {time:"16:00-17:30",title:"高等代数",cat:"专业课",desc:"北大《高等代数》重点章节+826历年真题。重点：多项式、矩阵、线性空间、线性变换、二次型"},
+      {time:"17:30-18:00",title:"家教备课",cat:"工作",desc:"提前准备今日家教教案，梳理讲解思路和例题。备课时间30-60分钟动态调整"},
+      {time:"18:00-19:00",title:"晚餐+立定跳远训练",cat:"体测",desc:"食堂20:00关门，提前用餐。深蹲跳3组×8个+立定跳远技术练习8次+50米起跑练习4次"},
+      {time:"19:00-20:30",title:"暑期家教（高三数学线上）",cat:"工作",desc:"周一至周六线上辅导，90分钟/次，时薪60元。教学相长，巩固数学基础"},
+      {time:"20:30-21:00",title:"引体向上+家教复盘",cat:"体测",desc:"体育馆21:00关门，及时完成引体向上训练（悬垂3组+离心下降3组）+记录今日教学问题"},
+      {time:"21:00-22:30",title:"政治（徐涛强化班）",cat:"政治",desc:"1.25倍速听课+对应肖秀荣1000题。本月重点：马原（唯物论+辩证法+认识论）+史纲（旧民主主义革命）"},
+      {time:"22:30-23:00",title:"单词滚动复习",cat:"英语",desc:"艾宾浩斯复习法：复习今天新词+昨天前天单词"},
+      {time:"23:00-24:00",title:"四级听力+洗漱就寝",cat:"英语",desc:"23:00宿舍门关，在宿舍内听1篇四级听力短文(15min)+洗漱。23:30前入睡"}
+    ],
+    scheduleSunday:[
+      {time:"08:00-08:30",title:"晨跑+坐位体前屈拉伸",cat:"体测",desc:"慢跑800米(8min)+坐位体前屈拉伸(7min)，提升肺活量和柔韧性"},
+      {time:"08:30-09:00",title:"早餐+单词记忆",cat:"英语",desc:"边吃早餐边用APP背50个新词，用艾宾浩斯遗忘曲线法"},
+      {time:"09:00-12:00",title:"数学分析",cat:"专业课",desc:"华东师大《数学分析》重点章节+陕师大726历年真题。周天可多做综合题"},
+      {time:"12:00-14:00",title:"午餐+午休",cat:"休息",desc:"保证30分钟午睡，恢复精力"},
+      {time:"14:00-16:00",title:"英语（语法+阅读+单词）",cat:"英语",desc:"语法长难句40min+阅读精读40min+单词复习40min"},
+      {time:"16:00-18:00",title:"高等代数",cat:"专业课",desc:"北大《高等代数》重点章节+826历年真题。周天有完整2小时，可做综合题"},
+      {time:"18:00-19:00",title:"晚餐+立定跳远训练",cat:"体测",desc:"深蹲跳3组×8个+立定跳远技术练习8次+50米起跑练习4次"},
+      {time:"19:00-21:00",title:"数分高代（竞赛题/难题专项）",cat:"专业课",desc:"周天无家教，利用这段时间做竞赛真题或数分高代难题，补回平日备课占用的时间"},
+      {time:"21:00-21:30",title:"引体向上+休息",cat:"体测",desc:"体育馆21:00关门，完成引体向上训练（悬垂3组+离心下降3组）"},
+      {time:"21:30-23:00",title:"政治（徐涛强化班）",cat:"政治",desc:"1.25倍速听课+对应肖秀荣1000题。本月重点：马原+史纲"},
+      {time:"23:00-24:00",title:"单词复习+四级听力+洗漱就寝",cat:"英语",desc:"23:00宿舍门关，在宿舍内复习单词+听1篇四级听力短文(15min)+洗漱"}
+    ]
+  },
+  {
+    name:"强化攻坚期",start:"2026-09-01",end:"2026-10-31",color:"#6F6FFF",
+    desc:"开学后全力备考，数分高代真题深度训练，英语集中刷阅读，政治刷题+技巧班",
+    info:{
+      goal:"完成数分高代全部章节的第二轮复习和真题训练，英语阅读真题做到2020年，政治1000题二刷完成并学完腿姐技巧班，CET-4报名并开始听力专项训练，完成考研网上预报名和正式报名，大四体测达标。",
+      requirements:[
+        "数分：完成教材剩余章节（级数、多元函数、含参量积分），陕师大726真题做第二遍并整理错题本",
+        "高代：完成教材剩余章节（二次型、线性空间、线性变换、欧几里得空间），826真题做第二遍",
+        "英语：2006-2020年真题阅读每篇精做三遍（做题→逐句翻译→复盘），限时17-19分钟/篇",
+        "政治：1000题二刷（只做错题）+腿姐技巧班全部学完（选择题关键词定位法+主观题点默析结构）",
+        "CET-4：9月中旬在cet-bm.neea.edu.cn完成报名，每天30分钟听力训练",
+        "考研报名：9月24-27日预报名+10月8-25日正式报名，务必确认信息无误",
+        "体测：10月中下旬大四体测，立定跳远达到210cm（60分），1000米达到5'10\"（40分）"
+      ],
+      notes:[
+        "开学后课程可能占用白天时间，需要灵活调整：优先保证每天6小时以上考研学习时间",
+        "9月预报名和10月正式报名一定要及时完成，错过无法补报",
+        "CET-4报名后立即开始听力训练，不要等到11月才突击",
+        "10月体测是毕业的关键，体测前一周减少训练量，保持状态即可",
+        "英语阅读做真题时严格限时，不要查字典，模拟真实考试环境",
+        "错题本是这个阶段最重要的产出，每个错题都要标注错误原因和正确思路"
+      ],
+      warnings:[
+        "如果10月底前求职/兼职仍占用大量时间，立即停止求职，100%投入考研（11月还有6周冲刺期）",
+        "不要在10月才开始背英语作文模板，至少10月中旬就要启动",
+        "政治不要只听课不刷题，1000题至少刷两遍，错题要反复看",
+        "体测前3天停止立定跳远训练，避免肌肉疲劳影响发挥"
+      ],
+      milestones:[
+        {label:"数分真题",value:"第二遍完成"},
+        {label:"英语阅读",value:"2006-2020"},
+        {label:"CET-4",value:"已报名"},
+        {label:"体测成绩",value:"达标54+"}
+      ]
+    },
+    schedule:[
+      {time:"07:30-08:00",title:"晨跑+拉伸",cat:"体测",desc:"慢跑1000米+坐位体前屈拉伸。9月起逐步增加跑步距离"},
+      {time:"08:00-08:30",title:"早餐+单词",cat:"英语",desc:"背50个新词+复习旧词"},
+      {time:"08:30-12:00",title:"数分高代（真题+竞赛专项）",cat:"专业课",desc:"陕师大726+826真题第二遍+其他高校真题。穿插竞赛专项训练（证明题、综合题）"},
+      {time:"12:00-14:00",title:"午餐+午休",cat:"休息",desc:"30分钟午睡"},
+      {time:"14:00-16:00",title:"英语（阅读精做+新题型）",cat:"英语",desc:"2006-2020真题阅读精做1-2篇(限时17-19min/篇)+三遍精读法。9月起加新题型(七选五/排序/小标题)"},
+      {time:"16:00-17:30",title:"政治（1000题二刷+腿姐技巧班）",cat:"政治",desc:"二刷1000题错题+腿姐技巧班(选择题关键词定位法+主观题点默析结构)"},
+      {time:"17:30-18:30",title:"晚餐+休息",cat:"休息",desc:"食堂20:00前关门，提前用餐"},
+      {time:"18:30-20:30",title:"数分高代（真题/错题）",cat:"专业课",desc:"整理错题本+经典反例集+专题突破"},
+      {time:"20:30-21:00",title:"立定跳远+引体向上训练",cat:"体测",desc:"体育馆21:00关门。深蹲跳3组×8+立定跳远技术练习8次+引体向上悬垂3组。10月体测前加量"},
+      {time:"21:00-22:00",title:"英语（作文/翻译/听力）",cat:"英语",desc:"10月起准备作文模板(大作文2-3套+小作文信体)+四级听力30min"},
+      {time:"22:00-23:00",title:"政治（刷题/复习）",cat:"政治",desc:"10月下旬起刷肖八等模拟卷选择题，每天一套，错题当场复盘"},
+      {time:"23:00-24:00",title:"单词复习+日总结",cat:"英语",desc:"23:00宿舍门关，在宿舍内复习单词+记录今日完成情况"}
+    ]
+  },
+  {
+    name:"竞赛冲刺期",start:"2026-11-01",end:"2026-11-30",color:"#22A5F7",
+    desc:"竞赛初赛月，以赛代练，竞赛冲刺即考研专业课冲刺",
+    info:{
+      goal:"参加全国大学生数学竞赛初赛并力争获奖，完成考研网上确认，政治肖八选择题达到35分以上，英语全科模考稳定在50分以上，完成作文模板定稿。",
+      requirements:[
+        "竞赛：11月中旬参加初赛，数分50%+高代35%+解析几何15%，做透竞赛历年真题",
+        "考研确认：11月上旬完成网上确认（上传照片、缴费、确认信息）",
+        "政治：肖八选择题每天一套限时做，错题当天复盘；跟腿姐时政课",
+        "英语：2021-2025真题全科模考（限时180分钟），作文模板定稿（大作文2-3套+小作文2套）",
+        "CET-4：每2天做1套听力真题（25分钟），作文翻译各写2篇",
+        "专业课：竞赛结束后（11月中下旬）立即转入考研真题整套模考"
+      ],
+      notes:[
+        "竞赛初赛通常在11月第二个周日，考前3天减少做题量，保持手感即可",
+        "竞赛和考研内容高度重叠：数分高代占85%，竞赛训练就是在训练考研专业课",
+        "11月网上确认非常重要，忘记确认等于放弃考试，设置手机闹钟提醒",
+        "肖八选择题不要在意分数，第一套可能只有25-30分，重点是查漏补缺",
+        "英语模考后一定要复盘：每篇阅读分析错因，作文对照范文修改",
+        "11月中旬开始接触政治主观题，先学答题结构（点-默-析），不急着背"
+      ],
+      warnings:[
+        "竞赛初赛当天注意时间分配：先做有把握的题，难题不要死磕超过15分钟",
+        "不要因为竞赛成绩不理想影响考研心态，竞赛只是加分项，考研才是主线",
+        "11月是放弃考研的高发期（约30%考生在此阶段放弃），坚持住你就赢了三分之一",
+        "CET-4听力不要中断训练，即使每天只听15分钟也比完全不听好"
+      ],
+      milestones:[
+        {label:"竞赛初赛",value:"参加并获奖"},
+        {label:"网上确认",value:"已完成"},
+        {label:"肖八选择题",value:"35分+"},
+        {label:"英语模考",value:"50分+"}
+      ]
+    },
+    schedule:[
+      {time:"07:30-08:00",title:"晨跑+拉伸",cat:"体测",desc:"轻度慢跑800米+拉伸维持"},
+      {time:"08:00-08:30",title:"早餐+单词",cat:"英语",desc:"背词+复习"},
+      {time:"08:30-12:30",title:"数分高代（竞赛真题+模拟）",cat:"专业课",desc:"竞赛初赛内容：数分50%+高代35%+解析几何15%。做竞赛历年真题+模拟题"},
+      {time:"12:30-14:00",title:"午餐+午休",cat:"休息",desc:"30分钟午睡"},
+      {time:"14:00-16:00",title:"英语（全科模考/作文）",cat:"英语",desc:"全真模考2021-2025真题(下午14:00-17:00标准时间)+作文定稿(大作文2-3套模板)"},
+      {time:"16:00-18:00",title:"政治（肖八+模拟卷）",cat:"政治",desc:"肖八选择题(每天一套限时做)+错题复盘+时政跟腿姐时政课"},
+      {time:"18:00-19:00",title:"晚餐+休息",cat:"休息",desc:"—"},
+      {time:"19:00-21:00",title:"数分高代（考研真题模考）",cat:"专业课",desc:"竞赛结束后(11月中下旬)转考研真题整套模考，训练时间分配"},
+      {time:"21:00-21:30",title:"立定跳远训练",cat:"体测",desc:"体测后转为维持训练：技术练习5次+轻度爆发力"},
+      {time:"21:30-23:00",title:"英语（作文/错题复盘/听力）",cat:"英语",desc:"每周写1篇大作文+1篇小作文+四级听力30min"},
+      {time:"23:00-24:00",title:"政治复习+日总结",cat:"政治",desc:"11月中旬起接触主观题(先学答题结构)+日总结"}
+    ]
+  },
+  {
+    name:"考研冲刺期",start:"2026-12-01",end:"2026-12-18",color:"#E8463A",
+    desc:"考前最后冲刺，12月12日四级考试，12月19日考研初试",
+    info:{
+      goal:"12月12日参加CET-4考试力争通过425分，12月19-21日参加考研初试力争总分360+，政治肖四背熟，英语作文模板能默写，专业课回归基础无盲区。",
+      requirements:[
+        "CET-4：12月12日（周六）9:00-11:20考试，考前3天每2天做1套完整真题",
+        "专业课：停止做新难题，回归基础——翻阅笔记+错题本+经典反例，核心公式定理能默写",
+        "政治：全力背诵肖四（先学结构再背材料），目标70分；肖四每套选择题限时30分钟",
+        "英语：作文模板熟练默写（大作文5分钟内写完，小作文3分钟内写完），阅读错题最后复盘",
+        "模考：每周1-2次数分高代全真模考（限时3小时），训练时间分配和答题节奏",
+        "作息：考前一周调整到考试作息（7:00起床，23:30前入睡），不要熬夜"
+      ],
+      notes:[
+        "12月12日CET-4考试和考研只隔7天，四级考完不要放松，立即投入考研最后冲刺",
+        "准考证打印（考前10天左右）后多打几份备用，放在不同口袋里",
+        "考前不要再做难题和新题，只看错题本和笔记，保持自信心",
+        "政治肖四背诵方法：先读3遍理解逻辑→再背框架→最后填充材料。不要死记硬背",
+        "英语考试时先写作文（30min），再做阅读（60min），最后完形填空（15min）",
+        "考前一天只做轻度复习（翻笔记+默写公式），下午散步放松，晚上23:00前入睡",
+        "考试当天带好：身份证、准考证、2B铅笔、黑色签字笔、橡皮、手表、透明水杯"
+      ],
+      warnings:[
+        "考前绝对不要熬夜，睡眠不足会导致考场发挥下降20-30%",
+        "不要在考前突然改变饮食习惯，避免肠胃不适",
+        "英语考试中遇到不会的阅读题不要死磕，先跳过做完再回来",
+        "政治主观题即使不会也要写满，按点-默-析结构写，写了就有分",
+        "如果某科考完感觉不好，不要对答案，不要影响下一科的心态"
+      ],
+      milestones:[
+        {label:"CET-4考试",value:"12月12日"},
+        {label:"考研初试",value:"12月19-21日"},
+        {label:"肖四背诵",value:"熟练"},
+        {label:"作文默写",value:"5分钟内"}
+      ]
+    },
+    schedule:[
+      {time:"07:30-08:00",title:"晨跑(轻度)+拉伸",cat:"体测",desc:"轻度活动，保持身体状态"},
+      {time:"08:00-08:30",title:"早餐+单词复习",cat:"英语",desc:"只复习高频词，不背新词"},
+      {time:"08:30-12:00",title:"数分高代（模考+错题回顾）",cat:"专业课",desc:"停止做新难题。回归基础：翻阅笔记+错题本+经典反例。每周1-2次全真模考"},
+      {time:"12:00-13:30",title:"午餐+午休",cat:"休息",desc:"保证休息"},
+      {time:"13:30-15:30",title:"英语（模考/作文默写）",cat:"英语",desc:"每2天写1篇作文保持手感+模板熟练默写+阅读错题复盘"},
+      {time:"15:30-18:00",title:"数分高代（回归基础）",cat:"专业课",desc:"核心公式定理默写+高频考点梳理"},
+      {time:"18:00-19:00",title:"晚餐+休息",cat:"休息",desc:"—"},
+      {time:"19:00-22:00",title:"政治（肖四背诵）",cat:"政治",desc:"全力背诵肖四。先学结构再背材料：这段话对应什么考点？遇到什么材料能用？"},
+      {time:"22:00-23:00",title:"英语（作文默写+错题）",cat:"英语",desc:"作文模板默写+阅读错题最后复盘"},
+      {time:"23:00-24:00",title:"日总结+洗漱就寝",cat:"休息",desc:"考前调整作息，23:30前入睡"}
+    ]
+  },
+  {
+    name:"复试蓄力期",start:"2026-12-19",end:"2027-02-28",color:"#27D2BF",
+    desc:"考研初试结束后，休整3-5天，然后启动复试准备+竞赛决赛准备",
+    info:{
+      goal:"考研初试结束后休整3-5天，然后启动复试笔试科目（实变函数、近世代数、常微分方程、概率论）复习，准备竞赛决赛，练习英语口语，完成毕业论文开题，2月底查CET-4成绩和考研初试成绩。",
+      requirements:[
+        "休整：初试结束后放松3-5天，不对答案，不过度焦虑，好好休息",
+        "复试笔试：实变函数（曹怀信《实变函数引论》）+近世代数（张禾瑞）+常微分方程+概率论",
+        "竞赛决赛：做决赛历年真题，决赛难度高于初赛，需要更深的综合证明能力",
+        "英语口语：准备英文自我介绍+数学专业术语英文表达+常见面试问题英文回答",
+        "毕业论文：1-2月完成文献阅读和开题报告，选择与数学分析/高等代数相关的方向",
+        "CET-4查分：2月底查询四级成绩（cet.neea.edu.cn）",
+        "考研查分：2月中下旬查询初试成绩，对照历年分数线判断是否过线"
+      ],
+      notes:[
+        "初试结束后不要立刻对答案，等官方公布答案后再估分，避免影响心情",
+        "如果预估分数在330-360之间（擦线），必须同时准备复试和调剂两手",
+        "复试笔试四门科目（实变+近世代数+常微分+概率论）分值各35-40分，不能偏废",
+        "竞赛决赛通常在3-4月，与复试时间重叠，两者训练内容高度协同，可合并准备",
+        "英语口语不要只背模板，要能自然交流。每天练习20分钟，找研友互相模拟",
+        "毕业论文方向建议选择与考研专业课相关的题目，复习和写论文可以互相促进",
+        "如果CET-4未过425分，不要过度焦虑，陕科大学位授予不强制要求四级"
+      ],
+      warnings:[
+        "如果初试成绩未过线，2月底3月初立即启动春招求职或二战准备",
+        "复试准备不要等到分数线公布才开始（3月中旬），那时只剩2-3周，来不及",
+        "面试中如果被问到不会的问题，坦诚说'这个问题我了解不深，但我知道相关的...'不要硬编",
+        "竞赛决赛如果未入围，不要灰心，全力准备复试即可"
+      ],
+      milestones:[
+        {label:"初试成绩",value:"2月公布"},
+        {label:"CET-4成绩",value:"2月底"},
+        {label:"复试笔试",value:"四门启动"},
+        {label:"毕业论文",value:"开题完成"}
+      ]
+    },
+    schedule:[
+      {time:"08:00-08:30",title:"晨跑+拉伸",cat:"体测",desc:"恢复跑步习惯+拉伸"},
+      {time:"08:30-09:00",title:"早餐+英语听说",cat:"英语",desc:"练习口语自我介绍+数学术语英文表达"},
+      {time:"09:00-12:00",title:"实变函数+泛函分析",cat:"复试",desc:"复试笔试核心科目。曹怀信《实变函数引论》为主"},
+      {time:"12:00-14:00",title:"午餐+午休",cat:"休息",desc:"—"},
+      {time:"14:00-16:00",title:"数分高代（决赛专项）",cat:"专业课",desc:"竞赛决赛难度训练：综合证明题+创新题型"},
+      {time:"16:00-18:00",title:"常微分方程（决赛+复试）",cat:"复试",desc:"决赛高年级组增加常微分方程，同时是复试笔试科目"},
+      {time:"18:00-19:00",title:"晚餐+休息",cat:"休息",desc:"—"},
+      {time:"19:00-21:00",title:"英语口语+专业英语",cat:"英语",desc:"复试外语听说测试准备+专业术语英文表达"},
+      {time:"21:00-23:00",title:"复试面试准备",cat:"复试",desc:"梳理本科科研经历+竞赛获奖+毕业论文方向+自我介绍"},
+      {time:"23:00-24:00",title:"日总结+洗漱就寝",cat:"休息",desc:"—"}
+    ]
+  },
+  {
+    name:"决赛复试期",start:"2027-03-01",end:"2027-04-30",color:"#EFAA17",
+    desc:"竞赛决赛+考研复试时间重叠，两者训练内容高度协同",
+    info:{
+      goal:"参加竞赛决赛力争获奖，参加考研复试力争录取，完成毕业论文初稿，如果未被一志愿录取则启动调剂。",
+      requirements:[
+        "竞赛决赛：3-4月参加决赛（具体时间以通知为准），做透决赛真题+模拟题",
+        "复试笔试冲刺：近世代数40分+常微分方程40分+实变函数35分+概率论35分，每科至少做3套模拟题",
+        "复试面试模拟：准备15个专业问题+10个综合素质问题的回答，至少模拟3次完整面试",
+        "英语口语冲刺：自我介绍（2分钟）+专业术语英文表达+常见问题英文回答",
+        "毕业论文：3-4月完成初稿，每天1-2小时（复试间隙完成）",
+        "调剂准备：如果初试擦线，3月中旬国家线公布后立即关注调剂信息（研招网调剂系统）",
+        "政审体检：复试前准备政审表、体检报告等材料"
+      ],
+      notes:[
+        "复试前联系导师：发邮件附简历+初试成绩+竞赛获奖证书，表达研究兴趣",
+        "面试着装：男生穿正装或衬衫西裤，女生穿职业装，干净整洁即可",
+        "面试态度：自信但不自大，遇到不会的问题坦诚回答，展现学习态度",
+        "竞赛决赛和复试时间如果冲突，优先复试（复试决定录取，决赛是锦上添花）",
+        "调剂信息每天刷研招网（yz.chsi.com.cn），调剂名额先到先得",
+        "复试结果通常1-3天公布，期间保持手机畅通",
+        "毕业论文不要拖到最后，复试间隙每天写1-2小时，4月底前完成初稿"
+      ],
+      warnings:[
+        "复试面试中不要贬低本科学校，不要说'我们学校不好所以想来你们学校'",
+        "不要在面试中表现出对某个研究方向的强烈偏好（除非确实了解该方向）",
+        "如果复试被刷，不要崩溃——立即启动调剂，很多211/双一流有调剂名额",
+        "毕业论文答辩通常在5-6月，复试结束后全力完成论文",
+        "如果最终未被任何学校录取，参考第三章后路方案：春招求职/二战/特岗教师/公务员"
+      ],
+      milestones:[
+        {label:"竞赛决赛",value:"参加并获奖"},
+        {label:"考研复试",value:"参加并录取"},
+        {label:"毕业论文",value:"初稿完成"},
+        {label:"调剂/求职",value:"后路启动"}
+      ]
+    },
+    schedule:[
+      {time:"08:00-08:30",title:"晨跑+拉伸",cat:"体测",desc:"维持体能"},
+      {time:"08:30-09:00",title:"早餐+英语听说",cat:"英语",desc:"口语练习"},
+      {time:"09:00-12:00",title:"决赛真题+模拟",cat:"专业课",desc:"竞赛决赛真题训练+模拟题。决赛难度高于初赛"},
+      {time:"12:00-14:00",title:"午餐+午休",cat:"休息",desc:"—"},
+      {time:"14:00-16:00",title:"复试专业课（实变/泛函/近世代数/概率论）",cat:"复试",desc:"复试笔试冲刺：近世代数40分+常微分方程40分+实变函数35分+概率论35分"},
+      {time:"16:00-18:00",title:"复试面试模拟",cat:"复试",desc:"模拟面试：专业问题+综合素质+英语口语。准备常见问题回答"},
+      {time:"18:00-19:00",title:"晚餐+休息",cat:"休息",desc:"—"},
+      {time:"19:00-21:00",title:"英语口语+面试英语",cat:"英语",desc:"复试外语听力及口语测试最后冲刺"},
+      {time:"21:00-23:00",title:"决赛冲刺/复试冲刺",cat:"专业课",desc:"根据时间灵活调整：决赛前侧重决赛，复试前侧重复试"},
+      {time:"23:00-24:00",title:"日总结+洗漱就寝",cat:"休息",desc:"—"}
+    ]
+  }
+];
+
+// ===== Date Utilities =====
+function formatDate(d){
+  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function parseDate(s){return new Date(s+'T00:00:00')}
+function dateDiff(a,b){return Math.round((parseDate(b)-parseDate(a))/86400000)}
+function addDays(s,n){const d=parseDate(s);d.setDate(d.getDate()+n);return formatDate(d)}
+function getPhase(dateStr){
+  for(const p of phases){if(dateStr>=p.start&&dateStr<=p.end)return p}
+  return null;
+}
+function getSchedule(phase,dateStr){
+  if(!phase)return[];
+  const dow=parseDate(dateStr).getDay();
+  if(dow===0&&phase.scheduleSunday)return phase.scheduleSunday;
+  return phase.schedule;
+}
+
+// ===== Safe Storage (localStorage with fallback) =====
+const _memStore={};
+let _useLocalStorage=true;
+try{
+  const _testKey='_test_ls_';
+  window.localStorage.setItem(_testKey,'1');
+  window.localStorage.removeItem(_testKey);
+}catch(e){
+  _useLocalStorage=false;
+}
+const safeStorage={
+  getItem(k){
+    if(_useLocalStorage){try{return window.localStorage.getItem(k)}catch(e){_useLocalStorage=false}}
+    return _memStore[k]||null;
+  },
+  setItem(k,v){
+    if(_useLocalStorage){try{window.localStorage.setItem(k,v);return}catch(e){_useLocalStorage=false}}
+    _memStore[k]=v;
+  },
+  removeItem(k){
+    if(_useLocalStorage){try{window.localStorage.removeItem(k);return}catch(e){_useLocalStorage=false}}
+    delete _memStore[k];
+  },
+  getAllKeys(){
+    if(_useLocalStorage){try{return Object.keys(window.localStorage)}catch(e){_useLocalStorage=false}}
+    return Object.keys(_memStore);
+  }
+};
+function isStoragePersistent(){return _useLocalStorage}
+
+// ===== Check-in Functions =====
+function getCheckKey(dateStr,idx){return`checkin_${dateStr}_${idx}`}
+function isChecked(dateStr,idx){return safeStorage.getItem(getCheckKey(dateStr,idx))==='1'}
+function toggleCheck(dateStr,idx){
+  const key=getCheckKey(dateStr,idx);
+  if(safeStorage.getItem(key)==='1'){safeStorage.removeItem(key)}
+  else{safeStorage.setItem(key,'1')}
+  renderSchedule();
+  updateProgress();
+}
+function clearAllCheckin(){
+  if(confirm('确定要清除所有打卡记录吗？此操作不可撤销。')){
+    safeStorage.getAllKeys().filter(k=>k.startsWith('checkin_')).forEach(k=>safeStorage.removeItem(k));
+    renderSchedule();updateProgress();
+  }
+}
+
+// ===== Render Functions =====
+let currentDate='2026-08-11';
+
+function renderSchedule(){
+  const phase=getPhase(currentDate);
+  const container=document.getElementById('scheduleList');
+  if(!phase){
+    container.innerHTML='<p style="padding:40px;text-align:center;color:var(--text-muted)">该日期不在计划范围内。计划范围：2026-08-11 至 2027-04-30</p>';
+    document.getElementById('phaseBadge').textContent='计划外';
+    document.getElementById('phaseBadge').style.background='#999';
+    return;
+  }
+  document.getElementById('phaseBadge').textContent=phase.name;
+  document.getElementById('phaseBadge').style.background=phase.color;
+  document.getElementById('currentDateText').textContent=currentDate;
+  document.getElementById('datePicker').value=currentDate;
+  
+  const dayOfWeek=parseDate(currentDate).getDay();
+  const dayNames=['周日','周一','周二','周三','周四','周五','周六'];
+  const isSunday=dayOfWeek===0;
+  
+  let html=`<div style="padding:16px 0 8px;color:var(--text-muted);font-size:14px">${phase.desc} | ${dayNames[dayOfWeek]}${isSunday&&phase.scheduleSunday?'（周日特殊安排）':''} | 第${dateDiff(phases[0].start,currentDate)+1}天</div>`;
+  
+  const activeSchedule=getSchedule(phase,currentDate);
+  activeSchedule.forEach((slot,idx)=>{
+    const checked=isChecked(currentDate,idx);
+    html+=`<div class="schedule-item ${checked?'checked':''}" onclick="toggleCheck('${currentDate}',${idx})">
+      <div class="schedule-time">${slot.time}</div>
+      <div class="schedule-content">
+        <div class="title">${slot.title}<span class="schedule-cat cat-${slot.cat}">${slot.cat}</span></div>
+        <div class="desc">${slot.desc}</div>
+      </div>
+      <div class="check-btn"></div>
+    </div>`;
+  });
+  
+  // Phase info section
+  if(phase.info){
+    const info=phase.info;
+    html+=`<div class="phase-info">
+      <div class="phase-info-header" style="background:${phase.color}">
+        <span class="icon">&#9888;</span>${phase.name} - 阶段目标与注意事项
+      </div>
+      <div class="phase-info-body">
+        <div class="phase-info-section">
+          <h4>阶段目的</h4>
+          <div class="phase-goal">${info.goal}</div>
+        </div>`;
+    
+    if(info.milestones&&info.milestones.length){
+      html+=`<div class="phase-info-grid">`;
+      info.milestones.forEach(m=>{
+        html+=`<div class="phase-stat"><div class="stat-label">${m.label}</div><div class="stat-value">${m.value}</div></div>`;
+      });
+      html+=`</div>`;
+    }
+    
+    if(info.requirements&&info.requirements.length){
+      html+=`<div class="phase-info-section"><h4>具体要求</h4><ul>`;
+      info.requirements.forEach(r=>{html+=`<li>${r}</li>`});
+      html+=`</ul></div>`;
+    }
+    
+    if(info.notes&&info.notes.length){
+      html+=`<div class="phase-info-section"><h4>注意事项</h4><ul>`;
+      info.notes.forEach(n=>{html+=`<li>${n}</li>`});
+      html+=`</ul></div>`;
+    }
+    
+    if(info.warnings&&info.warnings.length){
+      html+=`<div class="phase-info-section"><h4>风险提示</h4>`;
+      info.warnings.forEach(w=>{html+=`<div class="phase-danger">${w}</div>`});
+      html+=`</div>`;
+    }
+    
+    html+=`</div></div>`;
+  }
+  
+  container.innerHTML=html;
+}
+
+function updateProgress(){
+  const phase=getPhase(currentDate);
+  if(!phase){return}
+  
+  // Today's progress
+  const activeSchedule=getSchedule(phase,currentDate);
+  const total=activeSchedule.length;
+  let done=0;
+  activeSchedule.forEach((_,idx)=>{if(isChecked(currentDate,idx))done++});
+  document.getElementById('todayProgress').textContent=`${done}/${total}`;
+  document.getElementById('todayBar').style.width=`${total>0?(done/total*100):0}%`;
+  
+  // Week progress (current week)
+  const dayOfWeek=parseDate(currentDate).getDay();
+  const weekStart=addDays(currentDate,-dayOfWeek);
+  let weekDone=0,weekTotal=0;
+  for(let i=0;i<7;i++){
+    const d=addDays(weekStart,i);
+    const p=getPhase(d);
+    if(p){
+      const sched=getSchedule(p,d);
+      sched.forEach((_,idx)=>{weekTotal++;if(isChecked(d,idx))weekDone++});
+    }
+  }
+  document.getElementById('weekProgress').textContent=`${weekDone}/${weekTotal}`;
+  document.getElementById('weekBar').style.width=`${weekTotal>0?(weekDone/weekTotal*100):0}%`;
+  
+  // Total progress
+  let allDone=0,allTotal=0;
+  phases.forEach(p=>{
+    let d=p.start;
+    while(d<=p.end){
+      const sched=getSchedule(p,d);
+      sched.forEach((_,idx)=>{allTotal++;if(isChecked(d,idx))allDone++});
+      d=addDays(d,1);
+    }
+  });
+  document.getElementById('totalProgress').textContent=`${allDone}/${allTotal}`;
+  document.getElementById('totalBar').style.width=`${allTotal>0?(allDone/allTotal*100):0}%`;
+}
+
+function renderWeekNav(){
+  const container=document.getElementById('weekNav');
+  const today=formatDate(new Date());
+  let html='';
+  // Show current week + next 2 weeks
+  const dayOfWeek=parseDate(currentDate).getDay();
+  const weekStart=addDays(currentDate,-dayOfWeek);
+  for(let w=0;w<4;w++){
+    for(let i=0;i<7;i++){
+      const d=addDays(weekStart,w*7+i);
+      if(d<'2026-08-11'||d>'2027-04-30')continue;
+      const dayNum=parseDate(d).getDate();
+      const isToday=d===currentDate;
+      const phase=getPhase(d);
+      const phaseColor=phase?phase.color:'#ccc';
+      html+=`<button onclick="jumpToDate('${d}')" class="${isToday?'today':''}" style="${isToday?'':`border-left:3px solid ${phaseColor}`}">${dayNum}</button>`;
+    }
+  }
+  container.innerHTML=html;
+}
+
+// ===== Data Port (Export/Import) =====
+function setupDataPort(){
+  const nav=document.querySelector('.date-nav');
+  if(!nav)return;
+  
+  const exportBtn=document.createElement('button');
+  exportBtn.textContent='导出打卡';
+  exportBtn.className='data-port-btn';
+  exportBtn.onclick=exportCheckinData;
+  
+  const importBtn=document.createElement('button');
+  importBtn.textContent='导入打卡';
+  importBtn.className='data-port-btn';
+  importBtn.onclick=importCheckinData;
+  
+  const clearBtn=document.createElement('button');
+  clearBtn.textContent='清除打卡';
+  clearBtn.className='data-port-btn';
+  clearBtn.style.cssText='color:#E8463A';
+  clearBtn.onclick=function(){
+    if(confirm('确定要清除所有打卡记录吗？此操作不可撤销。')){
+      safeStorage.getAllKeys().filter(k=>k.startsWith('checkin_')).forEach(k=>safeStorage.removeItem(k));
+      renderSchedule();updateProgress();
+    }
+  };
+  
+  nav.appendChild(exportBtn);
+  nav.appendChild(importBtn);
+  nav.appendChild(clearBtn);
+}
+function exportCheckinData(){
+  const keys=safeStorage.getAllKeys().filter(k=>k.startsWith('checkin_'));
+  if(keys.length===0){
+    alert('暂无打卡数据可导出');
+    return;
+  }
+  const data={};
+  keys.forEach(k=>{data[k]=safeStorage.getItem(k)});
+  const json=JSON.stringify(data);
+  const blob=new Blob([json],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`打卡记录_${formatDate(new Date())}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  alert(`已导出 ${keys.length} 条打卡记录。请将文件保存到iCloud或通过AirDrop传到其他设备。`);
+}
+function importCheckinData(){
+  const input=document.createElement('input');
+  input.type='file';
+  input.accept='application/json,.json';
+  input.onchange=function(e){
+    const file=e.target.files[0];
+    if(!file)return;
+    const reader=new FileReader();
+    reader.onload=function(ev){
+      try{
+        const data=JSON.parse(ev.target.result);
+        let count=0;
+        for(const k in data){
+          if(k.startsWith('checkin_')&&data[k]==='1'){
+            safeStorage.setItem(k,'1');
+            count++;
+          }
+        }
+        renderSchedule();updateProgress();
+        alert(`成功导入 ${count} 条打卡记录！`);
+      }catch(err){
+        alert('导入失败：文件格式错误，请选择之前导出的打卡记录文件。');
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// ===== Navigation =====
+function changeDate(n){
+  const newDate=addDays(currentDate,n);
+  if(newDate>='2026-08-11'&&newDate<='2027-04-30'){
+    currentDate=newDate;
+    renderSchedule();updateProgress();renderWeekNav();
+  }
+}
+function goToToday(){
+  const today=formatDate(new Date());
+  if(today>='2026-08-11'&&today<='2027-04-30'){
+    currentDate=today;
+  }else{
+    currentDate='2026-08-11';
+  }
+  renderSchedule();updateProgress();renderWeekNav();
+}
+function jumpToDate(dateStr){
+  if(dateStr>='2026-08-11'&&dateStr<='2027-04-30'){
+    currentDate=dateStr;
+    renderSchedule();updateProgress();renderWeekNav();
+  }else{
+    alert('日期超出计划范围（2026-08-11 至 2027-04-30）');
+  }
+}
+
+// ===== TOC Navigation =====
+function setupTOC(){
+  const tocLinks=document.querySelectorAll('.toc-link');
+  
+  tocLinks.forEach(link=>{
+    link.addEventListener('click',e=>{
+      e.preventDefault();
+      const targetId=link.getAttribute('href').slice(1);
+      const target=document.getElementById(targetId);
+      if(target){
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    });
+  });
+  
+  // Floating TOC button: show after scrolling, click to scroll to TOC
+  const floatBtn=document.getElementById('float-toc');
+  const tocSection=document.getElementById('toc');
+  
+  window.addEventListener('scroll',()=>{
+    const tocBottom=tocSection.getBoundingClientRect().bottom;
+    if(tocBottom<0){
+      floatBtn.classList.add('show');
+    }else{
+      floatBtn.classList.remove('show');
+    }
+  });
+  
+  floatBtn.addEventListener('click',()=>{
+    tocSection.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+
+// ===== Keyboard Navigation =====
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(e.key==='ArrowLeft'){changeDate(-1)}
+  if(e.key==='ArrowRight'){changeDate(1)}
+});
+
+// ===== Init =====
+function init(){
+  // Set initial date to today if in range, otherwise Aug 11
+  const today=formatDate(new Date());
+  if(today>='2026-08-11'&&today<='2027-04-30'){
+    currentDate=today;
+  }else{
+    currentDate='2026-08-11';
+  }
+  
+  // Show storage warning if localStorage unavailable
+  if(!isStoragePersistent()){
+    const banner=document.createElement('div');
+    banner.style.cssText='padding:12px 20px;background:#fff3cd;border:1px solid #ffc107;color:#856404;font-size:13px;line-height:1.6;border-radius:8px;margin:12px 16px;text-align:center';
+    banner.innerHTML='<strong>⚠ 注意：</strong>当前浏览器不支持本地持久化存储，打卡数据仅在本次浏览有效，刷新或关闭后丢失。<br>建议使用 Safari 浏览器打开，或通过下方的「数据导出/导入」功能手动备份。';
+    const scheduleList=document.getElementById('scheduleList');
+    if(scheduleList){scheduleList.parentNode.insertBefore(banner,scheduleList)}
+  }
+  
+  renderSchedule();
+  updateProgress();
+  renderWeekNav();
+  setupTOC();
+  setupDataPort();
+}
+
+init();
+</script>
+
+
+</body></html>
